@@ -1,0 +1,8 @@
+name = "samosa-sheet-enquiries"
+main = "src/index.js"
+compatibility_date = "2026-09-05"
+
+[vars]
+ALLOWED_ORIGIN = "https://your-domain.example"
+FROM_EMAIL = "Samosa Sheet Website <enquiries@your-domain.example>"
+TO_EMAIL = "samosasheet@gmail.com"

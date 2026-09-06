@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Samosa Sheet Website — Production Launch Handbook</title>
+  <style>
+    @page { size: A4; margin: 16mm 15mm 18mm; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #1f2937; font: 10.5pt/1.48 Arial, sans-serif; }
+    h1, h2, h3 { color: #052e16; line-height: 1.18; page-break-after: avoid; }
+    h1 { margin: 0 0 8px; font-size: 27pt; }
+    h2 { margin: 24px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #f59e0b; font-size: 17pt; }
+    h3 { margin: 16px 0 7px; font-size: 12.5pt; }
+    p { margin: 6px 0 10px; }
+    ul, ol { margin: 7px 0 12px; padding-left: 23px; }
+    li { margin: 4px 0; }
+    code { padding: 1px 4px; border-radius: 3px; background: #f3f4f6; font: 9.5pt Consolas, monospace; }
+    pre { overflow-wrap: anywhere; white-space: pre-wrap; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 7px; background: #f8fafc; font: 8.7pt/1.4 Consolas, monospace; page-break-inside: avoid; }
+    table { width: 100%; margin: 9px 0 14px; border-collapse: collapse; page-break-inside: avoid; }
+    th, td { padding: 7px 8px; border: 1px solid #d1d5db; text-align: left; vertical-align: top; }
+    th { background: #ecfdf5; color: #14532d; }
+    a { color: #166534; }
+    .cover { min-height: 250mm; display: flex; flex-direction: column; justify-content: center; page-break-after: always; }
+    .badge { display: inline-block; width: fit-content; margin-bottom: 18px; padding: 6px 11px; border-radius: 999px; background: #f59e0b; color: #111827; font-weight: bold; }
+    .subtitle { max-width: 570px; color: #4b5563; font-size: 14pt; }
+    .meta { margin-top: 34px; padding: 16px; border-left: 5px solid #166534; background: #f0fdf4; }
+    .box { margin: 10px 0 14px; padding: 11px 13px; border: 1px solid #d1d5db; border-radius: 8px; page-break-inside: avoid; }
+    .warning { border-color: #f59e0b; background: #fffbeb; }
+    .success { border-color: #16a34a; background: #f0fdf4; }
+    .check { list-style: none; padding-left: 0; }
+    .check li::before { content: "☐"; display: inline-block; width: 22px; color: #166534; font-size: 13pt; font-weight: bold; }
+    .gate { page-break-inside: avoid; }
+    .page-break { page-break-before: always; }
+    .small { color: #6b7280; font-size: 9pt; }
+    .footer-note { margin-top: 30px; padding-top: 8px; border-top: 1px solid #d1d5db; color: #6b7280; font-size: 8.5pt; }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <span class="badge">FINAL LAUNCH CHECKLIST</span>
+    <h1>Samosa Sheet Website<br>Production Launch Handbook</h1>
+    <p class="subtitle">A step-by-step document for finishing, testing, deploying and maintaining the website safely.</p>
+    <div class="meta">
+      <strong>Business contact currently configured</strong><br>
+      Phone and WhatsApp: +91 90803 33944<br>
+      Public email: thechennaisamosa@gmail.com<br>
+      Notification inbox: samosasheet@gmail.com<br>
+      Address: No. 88, 7th Street, Azhagammal Nagar, Nerkundram, Chennai – 600107<br><br>
+      Prepared: 5 September 2026<br>
+      Project: <code>/home/dell/SS/samosa-sheet-website</code>
+    </div>
+    <p class="footer-note">Keep this document with the project. Do not write API keys, passwords or recovery codes in this PDF.</p>
+  </section>
+
+  <h2>1. What “production ready” means</h2>
+  <p>The website is ready to launch only when every required item below is checked, the final build passes, and the live-domain tests succeed. A successful local build alone does not prove that email, DNS, HTTPS, maps or WhatsApp work publicly.</p>
+  <div class="box success"><strong>Current technical status:</strong> TypeScript passes, the Next.js static production export builds, all expected routes exist, internal links resolve, product images exist, and the Worker source passes JavaScript syntax validation.</div>
+  <div class="box warning"><strong>Current launch status:</strong> not complete until the real domain, external accounts, verified business content and live tests are finished.</div>
+
+  <h3>Public routes that must work</h3>
+  <table>
+    <tr><th>Page</th><th>Route</th><th>Primary purpose</th></tr>
+    <tr><td>Home</td><td><code>/</code></td><td>Business overview and primary conversion</td></tr>
+    <tr><td>Products</td><td><code>/products/</code></td><td>Small, medium and large sheet options</td></tr>
+    <tr><td>How to Use</td><td><code>/how-to-use/</code></td><td>Preparation steps and video</td></tr>
+    <tr><td>About</td><td><code>/about/</code></td><td>Business and quality information</td></tr>
+    <tr><td>Bulk Orders</td><td><code>/wholesale/</code></td><td>Wholesale enquiry form</td></tr>
+    <tr><td>Contact</td><td><code>/contact/</code></td><td>Contact form, map, details and FAQ</td></tr>
+    <tr><td>FAQ</td><td><code>/faq/</code></td><td>Direct FAQ link from footer/search</td></tr>
+    <tr><td>Legal</td><td><code>/privacy-policy/</code>, <code>/terms/</code></td><td>Privacy and ordering terms</td></tr>
+  </table>
+
+  <h2>2. Master launch gate</h2>
+  <ul class="check">
+    <li>Real domain purchased and connected</li>
+    <li>Business configuration and public contact details confirmed</li>
+    <li>Metadata, sitemap and robots files use the real HTTPS domain</li>
+    <li>Social links are real or hidden</li>
+    <li>Products, pack sizes, storage and shelf-life information confirmed</li>
+    <li>Statistics and testimonials are genuine and approved</li>
+    <li>FAQ placeholder wording replaced with final answers</li>
+    <li>Large images optimized and visually checked</li>
+    <li>Email Worker and Resend connected and tested</li>
+    <li>Privacy Policy and Terms approved for the business</li>
+    <li>Production build and live-domain acceptance test passed</li>
+    <li>Monitoring, backups and account recovery configured</li>
+  </ul>
+
+  <h2>3. Launch task 1 — domain and DNS</h2>
+  <ol>
+    <li>Purchase or confirm the final domain, for example <code>yourdomain.in</code>.</li>
+    <li>Connect it to the selected static host and follow the host’s DNS instructions.</li>
+    <li>Enable HTTPS. The browser must show a valid certificate without warnings.</li>
+    <li>Redirect HTTP to HTTPS and decide whether the canonical address uses <code>www</code> or no <code>www</code>.</li>
+    <li>Set <code>NEXT_PUBLIC_SITE_URL</code> to the canonical HTTPS origin without a trailing slash.</li>
+  </ol>
+  <pre>NEXT_PUBLIC_SITE_URL="https://your-real-domain.in"</pre>
+  <h3>Acceptance criteria</h3>
+  <ul class="check"><li>HTTPS homepage loads publicly</li><li>HTTP redirects to HTTPS</li><li>Only one canonical domain version is used</li><li>No certificate errors</li></ul>
+
+  <h2>4. Launch task 2 — business configuration</h2>
+  <p>Create <code>.env.local</code> from <code>.env.example</code>. Confirm every value with the business owner.</p>
+  <pre>NEXT_PUBLIC_BUSINESS_NAME="FINAL LEGAL OR TRADING NAME"
+NEXT_PUBLIC_PHONE_DISPLAY="+91 90803 33944"
+NEXT_PUBLIC_PHONE="+919080333944"
+NEXT_PUBLIC_WHATSAPP_DISPLAY="+91 90803 33944"
+NEXT_PUBLIC_WHATSAPP="919080333944"
+NEXT_PUBLIC_EMAIL="thechennaisamosa@gmail.com"
+NEXT_PUBLIC_ADDRESS="No. 88, 7th Street, Azhagammal Nagar, Nerkundram, Chennai - 600107"
+NEXT_PUBLIC_HOURS="CONFIRMED OPENING HOURS"
+NEXT_PUBLIC_SITE_URL="https://your-real-domain.in"</pre>
+  <div class="box warning"><strong>Important:</strong> do not commit <code>.env.local</code>. The repository already ignores <code>.env*</code> except the safe example file.</div>
+
+  <h2>5. Launch task 3 — SEO, sitemap and robots</h2>
+  <ol>
+    <li>Replace every <code>https://example.com</code> entry in <code>app/sitemap.xml</code>.</li>
+    <li>Replace the sitemap and host URLs in <code>app/robots.txt</code>.</li>
+    <li>Confirm page titles and descriptions describe the real products and service area.</li>
+    <li>Build, then open <code>/sitemap.xml</code> and <code>/robots.txt</code> on the live site.</li>
+    <li>Add the domain to Google Search Console and submit <code>/sitemap.xml</code>.</li>
+  </ol>
+  <h3>Acceptance criteria</h3>
+  <ul class="check"><li>No <code>example.com</code> remains in generated output</li><li>Every public route is listed once</li><li>Canonical tags use HTTPS</li><li>Google can fetch the sitemap</li></ul>
+
+  <h2>6. Launch task 4 — social accounts</h2>
+  <p>Set real Instagram, Facebook and YouTube URLs in <code>.env.local</code>. If an account does not exist, remove or hide its icon; never send visitors to a generic platform homepage.</p>
+  <pre>NEXT_PUBLIC_INSTAGRAM="https://instagram.com/real-account"
+NEXT_PUBLIC_FACEBOOK="https://facebook.com/real-page"
+NEXT_PUBLIC_YOUTUBE="https://youtube.com/@real-channel"</pre>
+  <ul class="check"><li>Every icon opens the correct business account</li><li>Links open safely in a new tab</li><li>Profile names and contact details match the website</li></ul>
+
+  <h2>7. Launch task 5 — product and food information</h2>
+  <p>Verify the values in <code>data/products.ts</code> and the supplied packaging before publishing.</p>
+  <ul class="check">
+    <li>5 × 5, 7 × 7 and 8 × 8 inch sizes are actually sold</li>
+    <li>Every listed pack really contains 50 sheets</li>
+    <li>Storage method is accurate</li>
+    <li>Shelf life, thawing and refreezing guidance match the packaging</li>
+    <li>Ingredients, allergen information and vegetarian markings are available where legally required</li>
+    <li>Delivery area, minimum order and payment terms can be confirmed by staff</li>
+    <li>Images reasonably represent the real supplied product</li>
+  </ul>
+
+  <h2>8. Launch task 6 — claims and testimonials</h2>
+  <p>Review <code>components/About.tsx</code> and <code>components/Testimonials.tsx</code>. Publish only claims that can be supported.</p>
+  <ul class="check">
+    <li>“5+ years experience” is true and documented</li>
+    <li>“100+ business customers” is true and documented</li>
+    <li>Each testimonial came from a real customer who allowed publication</li>
+    <li>Star ratings accurately represent the customer’s statement</li>
+    <li>Unsupported claims are replaced or removed</li>
+  </ul>
+  <div class="box warning">Anonymous placeholder testimonials should not be presented as verified customer reviews.</div>
+
+  <h2>9. Launch task 7 — FAQ completion</h2>
+  <p>Edit <code>data/faqs.ts</code>. Remove internal drafting phrases such as “should be updated” and “update them based on your actual product range.”</p>
+  <ul class="check">
+    <li>Storage answer matches packaging</li><li>Shelf-life answer gives the confirmed duration or tells customers to check the pack</li><li>Available sizes are final</li><li>Delivery answer reflects the actual service area</li><li>Bulk-order and WhatsApp answers are accurate</li>
+  </ul>
+
+  <h2>10. Launch task 8 — image optimization</h2>
+  <p>The three product-card WebP images are already compact. The hero and production images are currently about 2 MB each and should be converted to WebP or AVIF.</p>
+  <ul class="check">
+    <li>Hero image ideally below 300–500 KB</li><li>Production image ideally below 300–500 KB</li><li>No visible quality loss on desktop</li><li>Images remain sharp on mobile</li><li>Alternative text still matches the final image</li><li>No logo, watermark or misleading packaging appears</li>
+  </ul>
+
+  <div class="page-break"></div>
+  <h2>11. Automatic email + WhatsApp setup</h2>
+  <p>The budget-friendly design uses a Cloudflare Worker and Resend. The website emails the enquiry to <code>samosasheet@gmail.com</code>, then opens WhatsApp with the same prepared message for the customer to approve and send.</p>
+  <h3>What you need</h3>
+  <ul><li>Cloudflare account</li><li>Resend account</li><li>Verified sending domain</li><li>Public website domain</li><li>Access to DNS records</li></ul>
+  <h3>Resend</h3>
+  <ol>
+    <li>Add the real domain in Resend.</li><li>Add the DNS records Resend provides.</li><li>Wait until verification succeeds.</li><li>Create a restricted API key.</li><li>Choose a sender such as <code>enquiries@your-real-domain.in</code>.</li>
+  </ol>
+  <h3>Worker configuration</h3>
+  <p>Edit <code>worker/wrangler.toml</code>:</p>
+  <pre>ALLOWED_ORIGIN = "https://your-real-domain.in"
+FROM_EMAIL = "Samosa Sheet Website &lt;enquiries@your-real-domain.in&gt;"
+TO_EMAIL = "samosasheet@gmail.com"</pre>
+  <p>Store and deploy from the project:</p>
+  <pre>cd /home/dell/SS/samosa-sheet-website/worker
+npx wrangler login
+npx wrangler secret put RESEND_API_KEY
+npx wrangler deploy</pre>
+  <div class="box warning"><strong>Never</strong> place the Resend API key in <code>.env.local</code> under a <code>NEXT_PUBLIC_</code> name, source code, Git, screenshots or chat.</div>
+  <h3>Connect the website</h3>
+  <pre>NEXT_PUBLIC_ENQUIRY_API_URL="https://samosa-sheet-enquiries.YOUR-SUBDOMAIN.workers.dev/"</pre>
+  <p>Rebuild the website after setting this variable. Without it, the interface intentionally remains in WhatsApp-only mode.</p>
+  <h3>Form acceptance tests</h3>
+  <table>
+    <tr><th>Flow</th><th>Email must contain</th><th>WhatsApp must contain</th></tr>
+    <tr><td>Product order</td><td>Product, size, pack size, quantity, phone, address</td><td>The same order details</td></tr>
+    <tr><td>Bulk enquiry</td><td>Business, location, product, quantity, frequency</td><td>The same wholesale details</td></tr>
+    <tr><td>Contact enquiry</td><td>Name, phone, email, type, message</td><td>The same enquiry details</td></tr>
+  </table>
+  <ul class="check"><li>Email reaches Inbox</li><li>Spam folder checked</li><li>Reply handling tested</li><li>Invalid input rejected</li><li>Wrong website origin rejected by Worker</li><li>Failure message appears if the email API is unavailable</li></ul>
+
+  <h2>12. Legal and privacy review</h2>
+  <ul class="check">
+    <li>Privacy Policy names the correct business</li><li>It explains collection through email, WhatsApp and forms</li><li>Terms describe order confirmation, payment, delivery, damage and returns accurately</li><li>No online-payment promise appears unless payments are implemented</li><li>Food labeling and local compliance obligations have been checked</li><li>Policies reviewed by a qualified local adviser where necessary</li>
+  </ul>
+
+  <h2>13. Build and deployment procedure</h2>
+  <p>From the project directory:</p>
+  <pre>cd /home/dell/SS/samosa-sheet-website
+npm ci
+npm run lint
+npm run build</pre>
+  <p>A successful build must list all 13 static routes and create <code>out/index.html</code>. For the included local service manager:</p>
+  <pre>./manage-service.sh deploy
+./manage-service.sh status</pre>
+  <p>For static hosting, deploy the complete <code>out/</code> directory. Do not upload source secrets.</p>
+
+  <h2>14. Final live-domain test</h2>
+  <h3>Desktop and mobile</h3>
+  <ul class="check"><li>Header and mobile menu work</li><li>Every navigation route opens</li><li>Footer links work</li><li>No horizontal scrolling</li><li>Text remains readable at 200% zoom</li><li>Keyboard focus is visible</li><li>FAQ controls expand and collapse</li></ul>
+  <h3>Contact and conversion</h3>
+  <ul class="check"><li>Call link uses +919080333944</li><li>Email link uses the intended public address</li><li>Map opens the correct building/location</li><li>Product order tested</li><li>Bulk form tested</li><li>Contact form tested</li><li>WhatsApp destination number confirmed</li><li>Email notification arrives at samosasheet@gmail.com</li></ul>
+  <h3>Search and quality</h3>
+  <ul class="check"><li>Page titles are unique</li><li>Canonical URLs use the live domain</li><li>Sitemap and robots return HTTP 200</li><li>No placeholder domain/social links remain</li><li>Browser console has no errors</li><li>Chrome Lighthouse checked for Performance, Accessibility, Best Practices and SEO</li><li>Chrome, Android and iPhone/Safari checked where available</li></ul>
+
+  <h2>15. Monitoring, backup and maintenance</h2>
+  <ul class="check"><li>Cloudflare and Resend two-factor authentication enabled</li><li>Recovery codes stored securely</li><li>Worker errors checked after launch</li><li>Resend delivery/bounce logs reviewed</li><li>Uptime monitor checks the homepage</li><li>Source backed up in a private Git repository</li><li>Environment values backed up in a password manager</li><li>Monthly contact/form test scheduled</li><li>Dependencies and security updates reviewed regularly</li></ul>
+  <h3>Suggested maintenance schedule</h3>
+  <table><tr><th>Frequency</th><th>Action</th></tr><tr><td>Monthly</td><td>Submit all forms, check links, confirm contact hours and review delivery logs</td></tr><tr><td>Quarterly</td><td>Review products, photos, claims, testimonials, FAQ and legal wording</td></tr><tr><td>Before every release</td><td>Run TypeScript, production build and live smoke tests</td></tr><tr><td>Yearly</td><td>Renew domain and verify account recovery access</td></tr></table>
+
+  <h2>16. Final sign-off</h2>
+  <p>Do not approve launch until every required checkbox in this document is complete.</p>
+  <table>
+    <tr><th>Approval</th><th>Name</th><th>Date</th><th>Signature</th></tr>
+    <tr><td>Business details and claims verified</td><td style="height:34px"></td><td></td><td></td></tr>
+    <tr><td>Products and food information verified</td><td style="height:34px"></td><td></td><td></td></tr>
+    <tr><td>Email and WhatsApp tested</td><td style="height:34px"></td><td></td><td></td></tr>
+    <tr><td>Legal pages reviewed</td><td style="height:34px"></td><td></td><td></td></tr>
+    <tr><td>Final production deployment approved</td><td style="height:34px"></td><td></td><td></td></tr>
+  </table>
+  <div class="box success"><strong>Launch decision:</strong> ☐ Approved &nbsp;&nbsp; ☐ Not approved — remaining items documented</div>
+  <p class="footer-note">End of handbook · Samosa Sheet Website · Production Launch Checklist · 5 September 2026</p>
+</body>
+</html>

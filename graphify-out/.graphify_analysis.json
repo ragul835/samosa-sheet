@@ -1,0 +1,289 @@
+{
+  "communities": {
+    "0": [
+      "app_page",
+      "app_page_home",
+      "components_about",
+      "components_about_about",
+      "components_contact",
+      "components_contact_contact",
+      "components_floatingwhatsapp",
+      "components_floatingwhatsapp_floatingwhatsapp",
+      "components_footer",
+      "components_footer_footer",
+      "components_hero",
+      "components_hero_hero",
+      "components_navbar",
+      "components_navbar_nav",
+      "components_navbar_navbar",
+      "components_products_products",
+      "components_testimonials",
+      "components_testimonials_testimonials",
+      "components_wholesale",
+      "components_wholesale_types",
+      "components_wholesale_wholesale",
+      "lib_site",
+      "lib_site_site",
+      "lib_site_walink"
+    ],
+    "1": [
+      "ref_dom",
+      "ref_dom_iterable",
+      "ref_esnext",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowjs",
+      "tsconfig_compileroptions_baseurl",
+      "tsconfig_compileroptions_esmoduleinterop",
+      "tsconfig_compileroptions_incremental",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_jsx",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_paths",
+      "tsconfig_compileroptions_plugins",
+      "tsconfig_compileroptions_resolvejsonmodule",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target"
+    ],
+    "2": [
+      "lucide_react",
+      "next",
+      "package",
+      "package_dependencies",
+      "package_dependencies_lucide_react",
+      "package_dependencies_next",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_lint",
+      "package_scripts_start",
+      "package_version",
+      "react",
+      "react_dom"
+    ],
+    "3": [
+      "autoprefixer",
+      "package_devdependencies",
+      "package_devdependencies_autoprefixer",
+      "package_devdependencies_postcss",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_types_node",
+      "package_devdependencies_types_react",
+      "package_devdependencies_types_react_dom",
+      "package_devdependencies_typescript",
+      "postcss",
+      "tailwindcss",
+      "types_node",
+      "types_react",
+      "types_react_dom",
+      "typescript"
+    ],
+    "4": [
+      "ref_next_env_d_ts",
+      "ref_next_types_ts",
+      "ref_node_modules",
+      "ref_ts",
+      "ref_tsx",
+      "tsconfig",
+      "tsconfig_exclude",
+      "tsconfig_include"
+    ],
+    "5": [
+      "components_faq",
+      "components_faq_faq",
+      "data_faqs",
+      "data_faqs_faqs"
+    ],
+    "6": [
+      "components_products",
+      "data_products",
+      "data_products_product",
+      "data_products_products"
+    ],
+    "7": [
+      "app_layout",
+      "app_layout_metadata",
+      "app_layout_rootlayout"
+    ],
+    "8": [
+      "components_benefits",
+      "components_benefits_benefits",
+      "components_benefits_items"
+    ],
+    "9": [
+      "components_howtouse",
+      "components_howtouse_howtouse",
+      "components_howtouse_steps"
+    ],
+    "10": [
+      "app_privacy_policy_page",
+      "app_privacy_policy_page_privacypolicy"
+    ],
+    "11": [
+      "app_robots",
+      "app_robots_robots"
+    ],
+    "12": [
+      "app_sitemap",
+      "app_sitemap_sitemap"
+    ],
+    "13": [
+      "app_terms_page",
+      "app_terms_page_terms"
+    ],
+    "14": [
+      "next_config",
+      "next_config_nextconfig"
+    ],
+    "15": [
+      "tailwind_config",
+      "tailwind_config_config"
+    ],
+    "16": [
+      "next_env_d"
+    ],
+    "17": [
+      "postcss_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.18115942028985507,
+    "1": 0.1,
+    "2": 0.1111111111111111,
+    "3": 0.13333333333333333,
+    "4": 0.25,
+    "5": 0.6666666666666666,
+    "6": 0.6666666666666666,
+    "7": 0.6666666666666666,
+    "8": 0.6666666666666666,
+    "9": 0.6666666666666666,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0,
+    "17": 1.0
+  },
+  "gods": [
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 17
+    },
+    {
+      "id": "lib_site_walink",
+      "label": "waLink()",
+      "degree": 13
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 5
+    },
+    {
+      "id": "tsconfig_include",
+      "label": "include",
+      "degree": 5
+    },
+    {
+      "id": "lib_site_site",
+      "label": "site",
+      "degree": 4
+    },
+    {
+      "id": "tsconfig_compileroptions_lib",
+      "label": "lib",
+      "degree": 4
+    },
+    {
+      "id": "components_contact_contact",
+      "label": "Contact()",
+      "degree": 3
+    },
+    {
+      "id": "components_floatingwhatsapp_floatingwhatsapp",
+      "label": "FloatingWhatsApp()",
+      "degree": 3
+    },
+    {
+      "id": "components_hero_hero",
+      "label": "Hero()",
+      "degree": 3
+    },
+    {
+      "id": "components_navbar_navbar",
+      "label": "Navbar()",
+      "degree": 3
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Contact()",
+      "target": "waLink()",
+      "source_files": [
+        "components/Contact.tsx",
+        "lib/site.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories"
+    },
+    {
+      "source": "FloatingWhatsApp()",
+      "target": "waLink()",
+      "source_files": [
+        "components/FloatingWhatsApp.tsx",
+        "lib/site.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories"
+    },
+    {
+      "source": "Hero()",
+      "target": "waLink()",
+      "source_files": [
+        "components/Hero.tsx",
+        "lib/site.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories"
+    },
+    {
+      "source": "Navbar()",
+      "target": "waLink()",
+      "source_files": [
+        "components/Navbar.tsx",
+        "lib/site.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories"
+    },
+    {
+      "source": "Products()",
+      "target": "waLink()",
+      "source_files": [
+        "components/Products.tsx",
+        "lib/site.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
