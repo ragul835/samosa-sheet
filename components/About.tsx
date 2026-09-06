@@ -14,7 +14,7 @@ export default function About() {
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {["Freshness","Consistent Quality","Easy Preparation","Hygienic Packaging","Bulk Supply"].map(x => <div key={x} className="flex items-center gap-2 font-medium"><Check className="text-leaf-700" size={18}/>{x}</div>)}
           </div>
-          <div className="mt-8 grid grid-cols-3 gap-3 border-t border-gray-200 pt-6 text-center"><div><strong className="block text-2xl text-leaf-700">5+</strong><span className="text-xs text-gray-500">Years experience</span></div><div><strong className="block text-2xl text-leaf-700">100+</strong><span className="text-xs text-gray-500">Business customers</span></div><div><strong className="block text-2xl text-leaf-700">Bulk</strong><span className="text-xs text-gray-500">Supply available</span></div></div>
+          <div className="mt-8 grid grid-cols-3 gap-2 border-t border-gray-200 pt-6 text-center sm:gap-3"><div><strong className="block text-xl text-leaf-700 sm:text-2xl">5+</strong><span className="text-[11px] leading-4 text-gray-500 sm:text-xs">Years experience</span></div><div><strong className="block text-xl text-leaf-700 sm:text-2xl">100+</strong><span className="text-[11px] leading-4 text-gray-500 sm:text-xs">Business customers</span></div><div><strong className="block text-xl text-leaf-700 sm:text-2xl">Bulk</strong><span className="text-[11px] leading-4 text-gray-500 sm:text-xs">Supply available</span></div></div>
         </div>
       </div>
     </section>

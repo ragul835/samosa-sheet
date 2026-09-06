@@ -45,10 +45,10 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200/80 bg-white/95 shadow-sm backdrop-blur-md">
-      <div className="container-shell flex min-h-[72px] items-center gap-4 py-3">
-        <Link href="/" onClick={() => setOpen(false)} className="flex shrink-0 items-center gap-3 rounded-lg font-bold text-gray-900" aria-label={`${site.name} home`}>
-          <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-500 text-sm font-black text-gray-950 shadow-sm" aria-hidden="true">SF</span>
-          <span className="whitespace-nowrap text-lg">{site.name}</span>
+      <div className="container-shell flex min-h-[72px] items-center gap-2 py-3 sm:gap-4">
+        <Link href="/" onClick={() => setOpen(false)} className="flex min-w-0 items-center gap-2 rounded-lg font-bold text-gray-900 sm:gap-3" aria-label={`${site.name} home`}>
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-500 text-sm font-black text-gray-950 shadow-sm sm:h-11 sm:w-11" aria-hidden="true">SF</span>
+          <span className="truncate text-base sm:text-lg">{site.name}</span>
         </Link>
 
         <nav aria-label="Primary navigation" className="ml-auto hidden items-center gap-1 xl:flex">
@@ -59,8 +59,8 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2 xl:ml-3">
-          <OrderWhatsAppButton className="btn-whatsapp hidden md:inline-flex">
+        <div className="ml-auto flex shrink-0 items-center gap-2 xl:ml-3">
+          <OrderWhatsAppButton className="btn-whatsapp !hidden md:!inline-flex">
             <MessageCircle size={18} aria-hidden="true" />
             <span>Order on WhatsApp</span>
           </OrderWhatsAppButton>

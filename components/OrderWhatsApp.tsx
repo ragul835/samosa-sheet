@@ -95,12 +95,12 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     <OrderContext.Provider value={{ openOrder }}>
       {children}
       {open && (
-        <div className="fixed inset-0 z-[100] grid place-items-center overflow-y-auto bg-gray-950/65 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && close()}>
-          <section role="dialog" aria-modal="true" aria-labelledby="order-title" className="my-8 w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl sm:p-8">
+        <div className="fixed inset-0 z-[100] grid place-items-center overflow-y-auto overscroll-contain bg-gray-950/65 p-3 backdrop-blur-sm sm:p-4" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && close()}>
+          <section role="dialog" aria-modal="true" aria-labelledby="order-title" className="my-3 max-h-[calc(100dvh-1.5rem)] w-full max-w-lg overflow-y-auto overscroll-contain rounded-2xl bg-white p-5 shadow-2xl sm:my-8 sm:max-h-[calc(100dvh-4rem)] sm:rounded-3xl sm:p-8">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-sm font-bold uppercase tracking-wider text-green-700">Order via WhatsApp</p>
-                <h2 id="order-title" className="mt-1 text-2xl font-bold text-gray-900">Enter delivery details</h2>
+                <h2 id="order-title" className="mt-1 text-xl font-bold text-gray-900 sm:text-2xl">Enter delivery details</h2>
                 <p className="mt-2 text-sm leading-6 text-gray-600">Your order request will open in WhatsApp and be addressed to {site.whatsappDisplay}.</p>
               </div>
               <button ref={closeButtonRef} type="button" onClick={close} aria-label="Close order form" className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50"><X aria-hidden="true"/></button>

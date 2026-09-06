@@ -15,12 +15,12 @@ export default function Products() {
           {products.map(p => (
             <article key={p.id} className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-xl">
               <div className="relative h-52 overflow-hidden bg-brand-50"><Image src={p.image} alt={p.imageAlt} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition duration-500 group-hover:scale-105" /></div>
-              <div className="p-6">
+              <div className="p-5 sm:p-6">
                 <h3 className="text-xl font-bold">{p.name}</h3>
                 <p className="mt-2 text-sm leading-6 text-gray-600">{p.description}</p>
                 <dl className="mt-5 space-y-2 text-sm">
                   {[["Size",p.size],["Pack",p.quantity],["Best for",p.bestFor],["Storage",p.storage]].map(([a,b]) =>
-                    <div key={a} className="flex justify-between gap-4"><dt className="text-gray-500">{a}</dt><dd className="font-semibold">{b}</dd></div>
+                    <div key={a} className="flex items-start justify-between gap-4"><dt className="shrink-0 text-gray-500">{a}</dt><dd className="min-w-0 break-words text-right font-semibold">{b}</dd></div>
                   )}
                 </dl>
                 <OrderWhatsAppButton productId={p.id} ariaLabel={`Order ${p.name} on WhatsApp`} className="btn-whatsapp mt-6 w-full">

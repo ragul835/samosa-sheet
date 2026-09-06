@@ -73,15 +73,15 @@ Please share pricing, minimum order quantity and delivery details.`);
           <h2 className="mt-3 text-3xl font-bold md:text-4xl">Looking for Bulk Samosa Sheet Supply?</h2>
           <p className="mt-4 max-w-xl leading-7 text-green-100">Reliable bulk supply for food businesses and distributors.</p>
           <div className="mt-7 flex flex-wrap gap-2">{types.map((type) => <span key={type} className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm">{type}</span>)}</div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="/wholesale/#bulk-enquiry" className="btn-primary">Request Wholesale Price</a>
-            <OrderWhatsAppButton className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-white/30 px-5 py-3 font-semibold transition hover:bg-white/10">
+          <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
+            <a href="/wholesale/#bulk-enquiry" className="btn-primary w-full sm:w-auto">Request Wholesale Price</a>
+            <OrderWhatsAppButton className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-white/30 px-5 py-3 font-semibold transition hover:bg-white/10 sm:w-auto">
               <MessageCircle size={18} aria-hidden="true" /> Order on WhatsApp
             </OrderWhatsAppButton>
           </div>
         </div>
 
-        <div id="bulk-enquiry" className="scroll-mt-32 rounded-2xl bg-white p-6 text-gray-900 shadow-soft">
+        <div id="bulk-enquiry" className="min-w-0 scroll-mt-32 rounded-2xl bg-white p-5 text-gray-900 shadow-soft sm:p-6">
           <div className="flex items-center gap-3">
             <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700"><Building2 aria-hidden="true" /></div>
             <div><h3 className="font-bold">Bulk Enquiry Details</h3><p className="text-sm text-gray-500">Send these details on WhatsApp</p></div>

@@ -76,7 +76,7 @@ ${messageValue}`);
           </div>
         </div>
 
-        <form onSubmit={submitContact} className="rounded-3xl border border-gray-200 bg-gray-50 p-6 shadow-soft sm:p-8">
+        <form onSubmit={submitContact} className="min-w-0 rounded-2xl border border-gray-200 bg-gray-50 p-5 shadow-soft sm:rounded-3xl sm:p-8">
           <input name="website" type="text" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
           <div className="grid gap-5 sm:grid-cols-2">
             <label className="text-sm font-semibold text-gray-800">Your name <span aria-hidden="true" className="text-red-600">*</span>
@@ -108,7 +108,7 @@ ${messageValue}`);
                 <div>
                   <h3 className="font-bold text-green-950">Ready to place an order?</h3>
                   <p className="mt-1 text-sm leading-6 text-green-900/80">Use the product order form to choose a product, quantity and delivery address.</p>
-                  <OrderWhatsAppButton className="btn-whatsapp mt-4">Start product order</OrderWhatsAppButton>
+                  <OrderWhatsAppButton className="btn-whatsapp mt-4 w-full sm:w-auto">Start product order</OrderWhatsAppButton>
                 </div>
               </div>
             </div>
@@ -120,7 +120,7 @@ ${messageValue}`);
 
           {error && <p role="alert" className="mt-5 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p>}
 
-          <button type="submit" disabled={submitting} className="btn-whatsapp mt-6 w-full disabled:cursor-wait disabled:opacity-70 sm:w-auto">
+          <button type="submit" disabled={submitting} className="btn-whatsapp mt-6 w-full text-center disabled:cursor-wait disabled:opacity-70 sm:w-auto">
             <Send aria-hidden="true" size={18} /> {submitting ? "Submitting…" : enquiryEmailEnabled ? "Email & continue to WhatsApp" : "Continue to WhatsApp"}
           </button>
           <p className="mt-4 text-xs leading-5 text-gray-500">By continuing, you choose to share these details through WhatsApp. See our <Link href="/privacy-policy/" className="font-semibold text-leaf-700 hover:underline">Privacy Policy</Link>.</p>
