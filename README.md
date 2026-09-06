@@ -43,11 +43,17 @@ npm run build
 Static output is generated in `out/`.
 
 ## Deployment
-### Vercel
-1. Push project to GitHub.
-2. Import repository in Vercel.
-3. Deploy.
-4. Connect the custom domain.
+### Cloudflare Workers static assets
+Connect the GitHub repository to a Cloudflare Worker and use:
+
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Root directory: `/`
+
+The root `wrangler.jsonc` publishes the generated `out/` directory as static
+assets. Do not use the OpenNext adapter for this project; it is already a fully
+static Next.js export. Cloudflare automatically deploys new commits from the
+configured production branch.
 
 ### Any static hosting
 Run `npm run build` and upload the `out/` folder.
