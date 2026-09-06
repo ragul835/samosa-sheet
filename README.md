@@ -60,17 +60,25 @@ Run `npm run build` and upload the `out/` folder.
 
 ### Free enquiry email notifications
 
-Product orders, bulk enquiries and contact forms can email each submission to
-`samosasheet@gmail.com` before opening the prepared WhatsApp message. The email
-API is the small Cloudflare Worker in `worker/` and uses Resend.
+Product orders, bulk enquiries and contact forms queue an email notification to
+`orders@samosasheet.com`, then open the prepared WhatsApp message immediately.
+The Cloudflare Worker in `worker/` sends queued notifications through Resend with
+automatic retries and duplicate-send protection.
 
-1. Verify a sending domain in Resend and create an API key.
-2. Replace `ALLOWED_ORIGIN` and `FROM_EMAIL` in `worker/wrangler.toml` with the
-   public website origin and an address on the verified domain.
-3. In the `worker` directory, run `npx wrangler secret put RESEND_API_KEY`, then
+1. Create the mailbox or forwarding address `orders@samosasheet.com` with your email provider.
+2. Verify the sending subdomain `mail.samosasheet.com` in Resend and create a
+   sending-only API key. Resend's DNS records must remain DNS-only in Cloudflare.
+3. Review `ALLOWED_ORIGINS`, `FROM_EMAIL`, and `TO_EMAIL` in
+   `worker/wrangler.toml`. Production is configured to send from
+   `website@mail.samosasheet.com` to `orders@samosasheet.com`.
+4. Change to the `worker` directory, then create the queues with
+   `npx wrangler queues create samosa-sheet-enquiries` and
+   `npx wrangler queues create samosa-sheet-enquiries-dlq`.
+5. From that directory, run `npx wrangler secret put RESEND_API_KEY`, then
    `npx wrangler deploy`.
-4. Set `NEXT_PUBLIC_ENQUIRY_API_URL` to the deployed Worker URL before building
-   the website. Never expose the Resend key in a `NEXT_PUBLIC_` variable.
+6. Set `NEXT_PUBLIC_ENQUIRY_API_URL=https://api.samosasheet.com/` in the website
+   build environment, then redeploy the website. Never expose the Resend key in
+   a `NEXT_PUBLIC_` variable.
 
 Without `NEXT_PUBLIC_ENQUIRY_API_URL`, the forms remain operational in
 WhatsApp-only mode and label that behavior accurately.
@@ -83,9 +91,10 @@ Customer-entered names, phone numbers, addresses, email addresses and messages
 are never included. Inspect these logs in the browser console or route console
 output to your preferred browser observability provider.
 
-The enquiry Worker emits correlated JSON logs for request validation and Resend
-delivery. Each browser/Worker pair shares an `X-Request-ID`, making a submission
-traceable end to end without logging its contents. Stream deployed Worker logs:
+The enquiry Worker emits correlated JSON logs for request validation, queueing,
+retry requests and Resend acceptance. Each browser/Worker pair shares an
+`X-Request-ID`, making a submission traceable end to end without logging its
+contents. Stream deployed Worker logs:
 
 ```bash
 npx wrangler tail samosa-sheet-enquiries
@@ -107,7 +116,7 @@ Also confirm before launch:
 - Testimonials
 - Privacy Policy and Terms & Conditions with your legal adviser
 
-Business configuration in `.env.local` automatically updates WhatsApp, phone, email, map, social links and page metadata. Replace `https://example.com` in `app/sitemap.xml` and `app/robots.txt` with the live domain before launch.
+Business configuration in `.env.local` automatically updates WhatsApp, phone, email, map, social links and page metadata. The sitemap and robots files are configured for `https://samosasheet.com`.
 
 ## Scope
 This V1 intentionally has no:

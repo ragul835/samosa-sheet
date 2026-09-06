@@ -5,7 +5,7 @@ Use this as the final launch checklist for the website and its optional enquiry-
 ## Must complete before launch
 
 - [ ] Create `.env.local` from `.env.example` and replace every sample value with the real business name, phone/WhatsApp number, email, address, hours, domain, and social links.
-- [ ] Replace `https://example.com` in `app/sitemap.xml` and `app/robots.txt` with the final HTTPS domain.
+- [x] Configure `app/sitemap.xml` and `app/robots.txt` for `https://samosasheet.com`.
 - [ ] Confirm all product sizes, pack quantities, storage instructions, shelf life, allergens, delivery coverage, prices, and availability with the business owner.
 - [ ] Replace or approve the current images and testimonials; obtain permission for all customer names, quotes, and photos used.
 - [ ] Have the Privacy Policy and Terms reviewed for the real business, enquiry-email processing, WhatsApp, Resend, Google Maps, retention, delivery, returns, and applicable food/business rules.
@@ -19,17 +19,20 @@ Use this as the final launch checklist for the website and its optional enquiry-
 
 Complete this section only if enquiries should also be emailed. Without `NEXT_PUBLIC_ENQUIRY_API_URL`, the site intentionally continues in WhatsApp-only mode.
 
-- [ ] Verify the sending domain in Resend and create a restricted production API key.
-- [ ] Replace `ALLOWED_ORIGIN`, `FROM_EMAIL`, and `TO_EMAIL` in `worker/wrangler.toml`.
+- [x] Create the `orders@samosasheet.com` forwarding address with Cloudflare Email Routing.
+- [ ] Verify `mail.samosasheet.com` in Resend and create a restricted sending-only production API key.
+- [ ] Confirm `ALLOWED_ORIGINS`, `FROM_EMAIL`, and `TO_EMAIL` in `worker/wrangler.toml`.
 - [ ] Store the key with `npx wrangler secret put RESEND_API_KEY`; never put it in source control or a `NEXT_PUBLIC_` variable.
-- [ ] Deploy the Worker, set its URL as `NEXT_PUBLIC_ENQUIRY_API_URL`, then rebuild the website because public environment values are embedded at build time.
+- [ ] Create the `samosa-sheet-enquiries` queue and `samosa-sheet-enquiries-dlq` dead-letter queue, then deploy the Worker.
+- [ ] Set `NEXT_PUBLIC_ENQUIRY_API_URL=https://api.samosasheet.com/`, then rebuild the website because public environment values are embedded at build time.
 - [ ] Add abuse protection beyond the honeypot (Cloudflare rate limiting/Turnstile or equivalent) and set alerts for repeated failures or unusual traffic.
-- [ ] Submit one real test for each enquiry type and confirm the email content, recipient, Resend delivery, CORS behavior, error message, and WhatsApp handoff.
+- [ ] Submit one real test for each enquiry type and confirm queue acceptance, email content, recipient, Resend delivery, retry behavior, CORS behavior, and WhatsApp handoff.
+- [ ] Monitor the dead-letter queue and alert on any message that exhausts all email retries.
 
 ## Quality and operations
 
 - [ ] Add automated CI for locked install, TypeScript checking, and production build on every pull request/deployment.
-- [ ] Add a small browser smoke-test suite for key pages and the three enquiry flows; no automated tests currently exist.
+- [ ] Add browser smoke tests for key pages; Worker unit tests already cover the three enquiry types, queue consumption, retries, CORS, and configuration failures.
 - [ ] Run Lighthouse and an accessibility check on mobile and desktop; fix serious accessibility, performance, SEO, and best-practice findings.
 - [ ] Test Chrome, Safari, Firefox, Android, and iPhone at common screen sizes and on a slow connection.
 - [ ] Optimize any oversized images and verify the social-share preview, page titles, descriptions, canonical URLs, sitemap, and robots file on the live domain.
@@ -57,7 +60,6 @@ Complete this section only if enquiries should also be emailed. Without `NEXT_PU
 
 ## Current project notes
 
-- Already present: static export configuration, responsive pages, metadata, sitemap/robots files, privacy/terms pages, client-side validation, honeypot handling, CORS restriction, request IDs, and structured logs.
-- Still visible in source: sample domain/social values and Worker domain placeholders.
-- Not currently present: CI configuration, automated tests, or a configured external monitoring destination.
-
+- Already present: static export configuration, responsive pages, metadata, sitemap/robots files, privacy/terms pages, client-side validation, honeypot handling, CORS restriction, request IDs, structured logs, and Worker unit tests.
+- Still visible in source: sample social values that must be confirmed by the business owner.
+- Not currently present: CI configuration, browser end-to-end tests, or a configured external monitoring destination.

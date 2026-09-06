@@ -6,13 +6,13 @@ export const site = {
   phone: env("NEXT_PUBLIC_PHONE", "+919080333944"),
   whatsappDisplay: env("NEXT_PUBLIC_WHATSAPP_DISPLAY", "+91 90803 33944"),
   whatsapp: env("NEXT_PUBLIC_WHATSAPP", "919080333944"),
-  email: env("NEXT_PUBLIC_EMAIL", "thechennaisamosa@gmail.com"),
+  email: env("NEXT_PUBLIC_EMAIL", "orders@samosasheet.com"),
   address: env(
     "NEXT_PUBLIC_ADDRESS",
     "No. 88, 7th Street, Azhagammal Nagar, Nerkundram, Chennai – 600107",
   ),
   hours: env("NEXT_PUBLIC_HOURS", "Monday – Saturday, 9:00 AM – 7:00 PM"),
-  domain: env("NEXT_PUBLIC_SITE_URL", "https://example.com").replace(/\/$/, ""),
+  domain: env("NEXT_PUBLIC_SITE_URL", "https://samosasheet.com").replace(/\/$/, ""),
   instagram: env("NEXT_PUBLIC_INSTAGRAM", "https://instagram.com"),
   facebook: env("NEXT_PUBLIC_FACEBOOK", "https://facebook.com"),
   youtube: env("NEXT_PUBLIC_YOUTUBE", "https://youtube.com")

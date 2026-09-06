@@ -1,14 +1,24 @@
-const JSON_HEADERS = { "Content-Type": "application/json; charset=utf-8" };
+const JSON_HEADERS = {
+  "Content-Type": "application/json; charset=utf-8",
+  "Cache-Control": "no-store",
+  "X-Content-Type-Options": "nosniff",
+};
+const MAX_BODY_BYTES = 20_000;
+const REQUEST_ID_PATTERN = /^[a-zA-Z0-9-]{1,64}$/;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function response(body, status, origin, requestId) {
+  const corsHeaders = origin ? {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Expose-Headers": "X-Request-ID",
+    Vary: "Origin",
+  } : {};
   return new Response(JSON.stringify(body), {
     status,
     headers: {
       ...JSON_HEADERS,
-      "Access-Control-Allow-Origin": origin,
-      "Access-Control-Expose-Headers": "X-Request-ID",
+      ...corsHeaders,
       "X-Request-ID": requestId,
-      Vary: "Origin",
     },
   });
 }
@@ -31,14 +41,56 @@ function log(level, event, data = {}) {
   }));
 }
 
+function allowedOrigins(env) {
+  return new Set(clean(env.ALLOWED_ORIGINS, 1000)
+    .split(",")
+    .map((value) => value.trim().replace(/\/$/, ""))
+    .filter(Boolean));
+}
+
+async function deliverEmail(enquiry, env) {
+  const { requestId, kind, fields } = enquiry || {};
+  if (!REQUEST_ID_PATTERN.test(requestId) || !Array.isArray(fields) || !fields.length) {
+    throw new Error("Invalid queued enquiry");
+  }
+  if (!env.RESEND_API_KEY || !env.FROM_EMAIL || !env.TO_EMAIL) {
+    throw new Error("Email service configuration is missing");
+  }
+
+  const text = fields.map(([key, value]) => `${key}: ${value}`).join("\n");
+  const rows = fields.map(([key, value]) => `<tr><th style="padding:8px;text-align:left;vertical-align:top;background:#f7f7f7">${escapeHtml(key)}</th><td style="padding:8px">${escapeHtml(value).replace(/\n/g, "<br>")}</td></tr>`).join("");
+  const replyTo = kind === "Contact enquiry" ? fields.find(([key]) => key === "Email")?.[1] : "";
+  const emailResponse = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+      "Idempotency-Key": `enquiry/${requestId}`,
+    },
+    body: JSON.stringify({
+      from: env.FROM_EMAIL,
+      to: [env.TO_EMAIL],
+      ...(replyTo && replyTo !== "Not provided" && EMAIL_PATTERN.test(replyTo) ? { reply_to: replyTo } : {}),
+      subject: `${kind} from the website`,
+      text: `${kind}\n\n${text}`,
+      html: `<h2>${escapeHtml(kind)}</h2><table style="border-collapse:collapse;width:100%" border="1" cellpadding="0" cellspacing="0">${rows}</table>`,
+    }),
+  });
+
+  if (!emailResponse.ok) {
+    throw new Error(`Email provider returned status ${emailResponse.status}`);
+  }
+  return emailResponse.status;
+}
+
 export default {
   async fetch(request, env) {
     const startedAt = Date.now();
     const suppliedRequestId = request.headers.get("X-Request-ID") || "";
-    const requestId = /^[a-zA-Z0-9-]{1,64}$/.test(suppliedRequestId) ? suppliedRequestId : crypto.randomUUID();
+    const requestId = REQUEST_ID_PATTERN.test(suppliedRequestId) ? suppliedRequestId : crypto.randomUUID();
     const origin = request.headers.get("Origin") || "";
-    const allowedOrigin = clean(env.ALLOWED_ORIGIN, 300).replace(/\/$/, "");
     const requestOrigin = origin.replace(/\/$/, "");
+    const originAllowed = allowedOrigins(env).has(requestOrigin);
     const finish = (body, status, event, extra = {}) => {
       log(status >= 500 ? "error" : status >= 400 ? "warn" : "info", event, {
         requestId,
@@ -47,21 +99,26 @@ export default {
         durationMs: Date.now() - startedAt,
         ...extra,
       });
-      return response(body, status, allowedOrigin || "null", requestId);
+      return response(body, status, originAllowed ? requestOrigin : "", requestId);
     };
 
     log("info", "request_received", { requestId, method: request.method });
-    if (!allowedOrigin || requestOrigin !== allowedOrigin) return finish({ error: "Origin not allowed" }, 403, "request_rejected", { reason: "origin" });
+    if (!originAllowed) return finish({ error: "Origin not allowed" }, 403, "request_rejected", { reason: "origin" });
 
     if (request.method === "OPTIONS") {
       log("info", "cors_preflight_completed", { requestId, method: request.method, status: 204, durationMs: Date.now() - startedAt });
-      return new Response(null, { status: 204, headers: { "Access-Control-Allow-Origin": allowedOrigin, "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, X-Request-ID", "Access-Control-Max-Age": "86400", "X-Request-ID": requestId, Vary: "Origin" } });
+      return new Response(null, { status: 204, headers: { "Access-Control-Allow-Origin": requestOrigin, "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, X-Request-ID", "Access-Control-Max-Age": "86400", "X-Request-ID": requestId, Vary: "Origin" } });
     }
     if (request.method !== "POST") return finish({ error: "Method not allowed" }, 405, "request_rejected", { reason: "method" });
-    if (Number(request.headers.get("Content-Length") || 0) > 20000) return finish({ error: "Payload too large" }, 413, "request_rejected", { reason: "payload_size" });
+    if (!request.headers.get("Content-Type")?.toLowerCase().startsWith("application/json")) return finish({ error: "Content-Type must be application/json" }, 415, "request_rejected", { reason: "content_type" });
+    if (Number(request.headers.get("Content-Length") || 0) > MAX_BODY_BYTES) return finish({ error: "Payload too large" }, 413, "request_rejected", { reason: "payload_size" });
 
     let payload;
-    try { payload = await request.json(); } catch { return finish({ error: "Invalid JSON" }, 400, "request_rejected", { reason: "invalid_json" }); }
+    try {
+      const body = await request.text();
+      if (new TextEncoder().encode(body).byteLength > MAX_BODY_BYTES) return finish({ error: "Payload too large" }, 413, "request_rejected", { reason: "payload_size" });
+      payload = JSON.parse(body);
+    } catch { return finish({ error: "Invalid JSON" }, 400, "request_rejected", { reason: "invalid_json" }); }
     if (clean(payload.website, 200)) return finish({ ok: true }, 200, "honeypot_accepted");
 
     const allowedKinds = new Set(["Product order", "Bulk enquiry", "Contact enquiry"]);
@@ -78,28 +135,37 @@ export default {
     const fields = entries.map(([key, value]) => [clean(key, 80), clean(value, 2000)]).filter(([key, value]) => allowedFields.has(key) && value);
     if (fields.length !== allowedFields.size) return finish({ error: "Missing details" }, 400, "request_rejected", { reason: "missing_details", enquiryKind: kind });
     if (!fields.length) return finish({ error: "Missing details" }, 400, "request_rejected", { reason: "missing_details", enquiryKind: kind });
-    const text = fields.map(([key, value]) => `${key}: ${value}`).join("\n");
-    const rows = fields.map(([key, value]) => `<tr><th style="padding:8px;text-align:left;vertical-align:top;background:#f7f7f7">${escapeHtml(key)}</th><td style="padding:8px">${escapeHtml(value).replace(/\n/g, "<br>")}</td></tr>`).join("");
-
-    let emailResponse;
+    if (!env.ENQUIRY_QUEUE?.send) return finish({ error: "Enquiry service is unavailable" }, 503, "queue_configuration_missing", { enquiryKind: kind });
     try {
-      emailResponse = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: env.FROM_EMAIL,
-          to: [env.TO_EMAIL || "samosasheet@gmail.com"],
-          subject: `${kind} from the website`,
-          text: `${kind}\n\n${text}`,
-          html: `<h2>${escapeHtml(kind)}</h2><table style="border-collapse:collapse;width:100%" border="1" cellpadding="0" cellspacing="0">${rows}</table>`,
-        }),
-      });
+      await env.ENQUIRY_QUEUE.send({ requestId, kind, fields });
     } catch (error) {
-      return finish({ error: "Email delivery failed" }, 502, "email_delivery_failed", { enquiryKind: kind, errorType: error instanceof Error ? error.name : "UnknownError" });
+      return finish({ error: "Enquiry could not be queued" }, 503, "enquiry_queue_failed", { enquiryKind: kind, errorType: error instanceof Error ? error.name : "UnknownError" });
     }
-    if (!emailResponse.ok) {
-      return finish({ error: "Email delivery failed" }, 502, "email_delivery_failed", { enquiryKind: kind, providerStatus: emailResponse.status });
+    return finish({ ok: true, queued: true, requestId }, 202, "enquiry_queued", { enquiryKind: kind });
+  },
+
+  async queue(batch, env) {
+    for (const message of batch.messages) {
+      const requestId = REQUEST_ID_PATTERN.test(message.body?.requestId) ? message.body.requestId : crypto.randomUUID();
+      const startedAt = Date.now();
+      try {
+        const providerStatus = await deliverEmail({ ...message.body, requestId }, env);
+        message.ack();
+        log("info", "enquiry_email_accepted", {
+          requestId,
+          enquiryKind: message.body?.kind || "Unknown",
+          providerStatus,
+          durationMs: Date.now() - startedAt,
+        });
+      } catch (error) {
+        message.retry();
+        log("error", "enquiry_email_retry_requested", {
+          requestId,
+          enquiryKind: message.body?.kind || "Unknown",
+          errorType: error instanceof Error ? error.name : "UnknownError",
+          durationMs: Date.now() - startedAt,
+        });
+      }
     }
-    return finish({ ok: true }, 200, "enquiry_completed", { enquiryKind: kind });
   },
 };

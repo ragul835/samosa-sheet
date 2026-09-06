@@ -122,9 +122,9 @@ Please share pricing, minimum order quantity and delivery details.`);
             {error && <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p>}
 
             <button type="submit" disabled={submitting} className="btn-whatsapp mt-2 w-full disabled:cursor-wait disabled:opacity-70">
-              <Send size={18} aria-hidden="true" /> {submitting ? "Submitting…" : enquiryEmailEnabled ? "Email & submit on WhatsApp" : "Submit on WhatsApp"}
+              <Send size={18} aria-hidden="true" /> {submitting ? "Submitting…" : enquiryEmailEnabled ? "Send enquiry & open WhatsApp" : "Submit on WhatsApp"}
             </button>
-            <p className="text-center text-xs leading-5 text-gray-500">{enquiryEmailEnabled ? "We email your request to our team, then open WhatsApp for your confirmation." : "Review the prepared enquiry in WhatsApp, then tap Send."}</p>
+            <p className="text-center text-xs leading-5 text-gray-500">{enquiryEmailEnabled ? "We securely queue an email notification, then open WhatsApp for your confirmation." : "Review the prepared enquiry in WhatsApp, then tap Send."}</p>
           </form>
         </div>
       </div>

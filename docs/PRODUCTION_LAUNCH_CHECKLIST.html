@@ -44,7 +44,7 @@
       <strong>Business contact currently configured</strong><br>
       Phone and WhatsApp: +91 90803 33944<br>
       Public email: thechennaisamosa@gmail.com<br>
-      Notification inbox: samosasheet@gmail.com<br>
+      Notification inbox: orders@samosasheet.com<br>
       Address: No. 88, 7th Street, Azhagammal Nagar, Nerkundram, Chennai – 600107<br><br>
       Prepared: 5 September 2026<br>
       Project: <code>/home/dell/SS/samosa-sheet-website</code>
@@ -113,7 +113,7 @@ NEXT_PUBLIC_SITE_URL="https://your-real-domain.in"</pre>
 
   <h2>5. Launch task 3 — SEO, sitemap and robots</h2>
   <ol>
-    <li>Replace every <code>https://example.com</code> entry in <code>app/sitemap.xml</code>.</li>
+    <li>Confirm every canonical URL in <code>app/sitemap.xml</code> uses <code>https://samosasheet.com</code>.</li>
     <li>Replace the sitemap and host URLs in <code>app/robots.txt</code>.</li>
     <li>Confirm page titles and descriptions describe the real products and service area.</li>
     <li>Build, then open <code>/sitemap.xml</code> and <code>/robots.txt</code> on the live site.</li>
@@ -166,7 +166,7 @@ NEXT_PUBLIC_YOUTUBE="https://youtube.com/@real-channel"</pre>
 
   <div class="page-break"></div>
   <h2>11. Automatic email + WhatsApp setup</h2>
-  <p>The budget-friendly design uses a Cloudflare Worker and Resend. The website emails the enquiry to <code>samosasheet@gmail.com</code>, then opens WhatsApp with the same prepared message for the customer to approve and send.</p>
+  <p>The production design uses a Cloudflare Worker and Queue with Resend. The website durably queues the enquiry, opens WhatsApp immediately with the prepared message, and sends the email notification asynchronously with automatic retries.</p>
   <h3>What you need</h3>
   <ul><li>Cloudflare account</li><li>Resend account</li><li>Verified sending domain</li><li>Public website domain</li><li>Access to DNS records</li></ul>
   <h3>Resend</h3>
@@ -177,7 +177,7 @@ NEXT_PUBLIC_YOUTUBE="https://youtube.com/@real-channel"</pre>
   <p>Edit <code>worker/wrangler.toml</code>:</p>
   <pre>ALLOWED_ORIGIN = "https://your-real-domain.in"
 FROM_EMAIL = "Samosa Sheet Website &lt;enquiries@your-real-domain.in&gt;"
-TO_EMAIL = "samosasheet@gmail.com"</pre>
+TO_EMAIL = "orders@samosasheet.com"</pre>
   <p>Store and deploy from the project:</p>
   <pre>cd /home/dell/SS/samosa-sheet-website/worker
 npx wrangler login
@@ -185,7 +185,7 @@ npx wrangler secret put RESEND_API_KEY
 npx wrangler deploy</pre>
   <div class="box warning"><strong>Never</strong> place the Resend API key in <code>.env.local</code> under a <code>NEXT_PUBLIC_</code> name, source code, Git, screenshots or chat.</div>
   <h3>Connect the website</h3>
-  <pre>NEXT_PUBLIC_ENQUIRY_API_URL="https://samosa-sheet-enquiries.YOUR-SUBDOMAIN.workers.dev/"</pre>
+  <pre>NEXT_PUBLIC_ENQUIRY_API_URL="https://api.samosasheet.com/"</pre>
   <p>Rebuild the website after setting this variable. Without it, the interface intentionally remains in WhatsApp-only mode.</p>
   <h3>Form acceptance tests</h3>
   <table>
@@ -216,7 +216,7 @@ npm run build</pre>
   <h3>Desktop and mobile</h3>
   <ul class="check"><li>Header and mobile menu work</li><li>Every navigation route opens</li><li>Footer links work</li><li>No horizontal scrolling</li><li>Text remains readable at 200% zoom</li><li>Keyboard focus is visible</li><li>FAQ controls expand and collapse</li></ul>
   <h3>Contact and conversion</h3>
-  <ul class="check"><li>Call link uses +919080333944</li><li>Email link uses the intended public address</li><li>Map opens the correct building/location</li><li>Product order tested</li><li>Bulk form tested</li><li>Contact form tested</li><li>WhatsApp destination number confirmed</li><li>Email notification arrives at samosasheet@gmail.com</li></ul>
+  <ul class="check"><li>Call link uses +919080333944</li><li>Email link uses the intended public address</li><li>Map opens the correct building/location</li><li>Product order tested</li><li>Bulk form tested</li><li>Contact form tested</li><li>WhatsApp destination number confirmed</li><li>Email notification arrives at orders@samosasheet.com</li></ul>
   <h3>Search and quality</h3>
   <ul class="check"><li>Page titles are unique</li><li>Canonical URLs use the live domain</li><li>Sitemap and robots return HTTP 200</li><li>No placeholder domain/social links remain</li><li>Browser console has no errors</li><li>Chrome Lighthouse checked for Performance, Accessibility, Best Practices and SEO</li><li>Chrome, Android and iPhone/Safari checked where available</li></ul>
 

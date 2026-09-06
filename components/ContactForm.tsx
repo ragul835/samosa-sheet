@@ -121,7 +121,7 @@ ${messageValue}`);
           {error && <p role="alert" className="mt-5 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p>}
 
           <button type="submit" disabled={submitting} className="btn-whatsapp mt-6 w-full text-center disabled:cursor-wait disabled:opacity-70 sm:w-auto">
-            <Send aria-hidden="true" size={18} /> {submitting ? "Submitting…" : enquiryEmailEnabled ? "Email & continue to WhatsApp" : "Continue to WhatsApp"}
+            <Send aria-hidden="true" size={18} /> {submitting ? "Submitting…" : enquiryEmailEnabled ? "Send enquiry & open WhatsApp" : "Continue to WhatsApp"}
           </button>
           <p className="mt-4 text-xs leading-5 text-gray-500">By continuing, you choose to share these details through WhatsApp. See our <Link href="/privacy-policy/" className="font-semibold text-leaf-700 hover:underline">Privacy Policy</Link>.</p>
         </form>

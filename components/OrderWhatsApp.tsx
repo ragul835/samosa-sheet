@@ -123,8 +123,8 @@ export function OrderProvider({ children }: { children: ReactNode }) {
                 <textarea autoComplete="street-address" rows={3} minLength={10} placeholder="House/shop, street, area, city and PIN code" value={address} onChange={(event) => setAddress(event.target.value)} required className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/20"/>
               </label>
               {error && <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p>}
-              <button type="submit" disabled={submitting} className="btn-whatsapp w-full disabled:cursor-wait disabled:opacity-70"><MessageCircle size={19} aria-hidden="true"/> {submitting ? "Submitting…" : enquiryEmailEnabled ? "Email & continue to WhatsApp" : "Continue to WhatsApp"}</button>
-              <p className="text-center text-xs leading-5 text-gray-500">{enquiryEmailEnabled ? "We email your request to our team, then open WhatsApp for your confirmation." : "Review the prepared request in WhatsApp, then tap Send."}</p>
+              <button type="submit" disabled={submitting} className="btn-whatsapp w-full disabled:cursor-wait disabled:opacity-70"><MessageCircle size={19} aria-hidden="true"/> {submitting ? "Submitting…" : enquiryEmailEnabled ? "Send order & open WhatsApp" : "Continue to WhatsApp"}</button>
+              <p className="text-center text-xs leading-5 text-gray-500">{enquiryEmailEnabled ? "We securely queue an email notification, then open WhatsApp for your confirmation." : "Review the prepared request in WhatsApp, then tap Send."}</p>
             </form>
           </section>
         </div>

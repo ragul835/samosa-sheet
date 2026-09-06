@@ -31,6 +31,7 @@ export async function emailThenOpenWhatsApp(payload: EnquiryPayload, whatsappUrl
     emailEnabled: Boolean(endpoint),
   });
 
+  let emailQueued = false;
   try {
     if (endpoint && !payload.website) {
       const response = await fetch(endpoint, {
@@ -39,34 +40,32 @@ export async function emailThenOpenWhatsApp(payload: EnquiryPayload, whatsappUrl
         body: JSON.stringify(payload),
       });
       if (!response.ok) {
-        const error = new Error("The email notification could not be sent.");
         logEvent("error", "enquiry_api_failed", {
           requestId,
           enquiryKind: payload.kind,
           status: response.status,
           durationMs: Math.round(performance.now() - startedAt),
         });
-        throw error;
+      } else {
+        emailQueued = true;
       }
     }
-
-    if (popup) popup.location.href = whatsappUrl;
-    else window.location.assign(whatsappUrl);
-    logEvent("info", "enquiry_whatsapp_opened", {
-      requestId,
-      enquiryKind: payload.kind,
-      emailed: Boolean(endpoint),
-      durationMs: Math.round(performance.now() - startedAt),
-    });
-    return { emailed: Boolean(endpoint) };
   } catch (error) {
-    popup?.close();
-    logEvent("error", "enquiry_submission_failed", {
+    logEvent("error", "enquiry_api_unavailable", {
       requestId,
       enquiryKind: payload.kind,
       errorType: errorName(error),
       durationMs: Math.round(performance.now() - startedAt),
     });
-    throw error;
   }
+
+  if (popup) popup.location.href = whatsappUrl;
+  else window.location.assign(whatsappUrl);
+  logEvent("info", "enquiry_whatsapp_opened", {
+    requestId,
+    enquiryKind: payload.kind,
+    emailQueued,
+    durationMs: Math.round(performance.now() - startedAt),
+  });
+  return { emailQueued };
 }
