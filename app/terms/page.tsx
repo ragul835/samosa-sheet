@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = { title: `Terms & Conditions | ${site.name}`, robots: { index: false, follow: true } };
+export const metadata: Metadata = { title: "Terms & Conditions", robots: { index: false, follow: true } };
 
 export default function Terms() {
   return <main className="min-h-screen bg-cream py-8 sm:py-16"><article className="container-shell max-w-3xl rounded-2xl bg-white p-5 shadow-soft sm:p-10">

@@ -8,15 +8,23 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import { site } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { absoluteUrl } from "@/lib/seo";
 
 export default function Home() {
+  const pageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `Ready-Made Samosa Sheets in India | ${site.name}`,
+    url: site.domain,
+    description: "Ready-made samosa sheets for retail, food-service and wholesale requirements across India.",
+    primaryImageOfPage: absoluteUrl("/images/samosa-sheets-hero.png"),
+    about: "Ready-made samosa sheets",
+    isPartOf: { "@id": absoluteUrl("/#website") },
+  };
+
   return <>
     <Hero /><Products /><Benefits /><HowToUse /><About /><Wholesale /><Testimonials /><FAQ /><Contact />
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-      "@context": "https://schema.org", "@type": "FoodEstablishment", name: site.name,
-      url: site.domain, telephone: site.phone, email: site.email, address: site.address,
-      image: `${site.domain}/images/samosa-sheets-hero.png`,
-      description: "Manufacturer and supplier of ready-made samosa sheets for homes, restaurants, catering and wholesale buyers."
-    }).replace(/</g, "\\u003c") }} />
+    <JsonLd data={pageJsonLd} />
   </>;
 }

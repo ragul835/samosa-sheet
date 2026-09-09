@@ -71,7 +71,7 @@ Please share pricing, minimum order quantity and delivery details.`);
         <div>
           <span className="text-sm font-bold uppercase tracking-widest text-brand-500">Wholesale Supply</span>
           <h2 className="mt-3 text-3xl font-bold md:text-4xl">Looking for Bulk Samosa Sheet Supply?</h2>
-          <p className="mt-4 max-w-xl leading-7 text-green-100">Reliable bulk supply for food businesses and distributors.</p>
+          <p className="mt-4 max-w-xl leading-7 text-green-100">Reliable bulk supply for food businesses and distributors across India.</p>
           <div className="mt-7 flex flex-wrap gap-2">{types.map((type) => <span key={type} className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm">{type}</span>)}</div>
           <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
             <a href="/wholesale/#bulk-enquiry" className="btn-primary w-full sm:w-auto">Request Wholesale Price</a>

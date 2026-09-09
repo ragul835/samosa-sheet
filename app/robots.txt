@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://samosasheet.com/sitemap.xml
-Host: https://samosasheet.com

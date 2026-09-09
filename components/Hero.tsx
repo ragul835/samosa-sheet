@@ -14,7 +14,7 @@ export default function Hero() {
             Fresh & Ready-to-Use <span className="text-brand-600">Samosa Sheets</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-gray-600">
-            Make crispy, delicious samosas easily with high-quality ready-made samosa sheets for homes, restaurants, catering businesses and food outlets.
+            Make crispy, delicious samosas easily with high-quality ready-made samosa sheets for homes, restaurants, catering businesses and food outlets across India.
           </p>
           <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
             <OrderWhatsAppButton className="btn-whatsapp w-full sm:w-auto"><MessageCircle size={19} aria-hidden="true"/> Order on WhatsApp</OrderWhatsAppButton>

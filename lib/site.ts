@@ -11,12 +11,26 @@ export const site = {
     "NEXT_PUBLIC_ADDRESS",
     "No. 88, 7th Street, Azhagammal Nagar, Nerkundram, Chennai – 600107",
   ),
+  addressLocality: env("NEXT_PUBLIC_ADDRESS_LOCALITY", "Chennai"),
+  addressRegion: env("NEXT_PUBLIC_ADDRESS_REGION", "Tamil Nadu"),
+  postalCode: env("NEXT_PUBLIC_POSTAL_CODE", "600107"),
   hours: env("NEXT_PUBLIC_HOURS", "Monday – Saturday, 9:00 AM – 7:00 PM"),
   domain: env("NEXT_PUBLIC_SITE_URL", "https://samosasheet.com").replace(/\/$/, ""),
   instagram: env("NEXT_PUBLIC_INSTAGRAM", "https://instagram.com"),
   facebook: env("NEXT_PUBLIC_FACEBOOK", "https://facebook.com"),
   youtube: env("NEXT_PUBLIC_YOUTUBE", "https://youtube.com")
 };
+
+const isBusinessSocialUrl = (value: string) => {
+  try {
+    const url = new URL(value);
+    return url.pathname !== "/" && !url.pathname.includes("yourbusiness");
+  } catch {
+    return false;
+  }
+};
+
+export const socialLinks = [site.instagram, site.facebook, site.youtube].filter(isBusinessSocialUrl);
 
 export function waLink(message: string) {
   const companyNumber = site.whatsapp.replace(/\D/g, "");

@@ -116,7 +116,16 @@ Also confirm before launch:
 - Testimonials
 - Privacy Policy and Terms & Conditions with your legal adviser
 
-Business configuration in `.env.local` automatically updates WhatsApp, phone, email, map, social links and page metadata. The sitemap and robots files are configured for `https://samosasheet.com`.
+Business configuration in `.env.local` automatically updates WhatsApp, phone, email, map, social links, page metadata, sitemap and robots output. Add `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` after verifying the property in Google Search Console.
+
+## SEO launch checklist
+
+Before publishing, confirm the production values in `.env.local`, especially the canonical domain and the structured-address fields. After deployment:
+
+1. Verify the site in Google Search Console with the `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` value, rebuild, then submit `https://your-domain/sitemap.xml`.
+2. Create or claim the Google Business Profile using the real Chennai address, phone number and business hours; do not use a virtual location.
+3. Replace the placeholder social profile URLs with the business’s real profile URLs so they can be included in organization schema.
+4. Validate the live home, product, FAQ and how-to pages with Google’s Rich Results Test and monitor indexing in Search Console.
 
 ## Scope
 This V1 intentionally has no:
