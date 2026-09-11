@@ -9,9 +9,9 @@ export default function Hero() {
     <section id="home" className="overflow-hidden bg-cream py-12 sm:py-16 md:py-24">
       <div className="container-shell grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
         <div>
-          <span className="inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-leaf-700 shadow-sm">Fresh • Hygienic • Ready to Use</span>
+          <span className="inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-leaf-700 shadow-sm">SamosaSheet • Fresh • Hygienic • Ready to Use</span>
           <h1 className="mt-6 break-words text-3xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-4xl md:text-5xl xl:text-6xl">
-            Fresh & Ready-to-Use <span className="text-brand-600">Samosa Sheets</span>
+            <span className="text-brand-600">SamosaSheet:</span> Fresh & Ready-to-Use Samosa Sheets
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-gray-600">
             Ready-made samosa sheets, also known as samosa patti or samosa wrappers, from Karpagam Foods in Nerkundram, Chennai. Retail and wholesale supply for Tamil Nadu, Kerala, Karnataka, Andhra Pradesh, Telangana and buyers across India; contact us to confirm delivery.

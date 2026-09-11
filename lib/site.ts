@@ -11,6 +11,7 @@ function siteOrigin(value: string) {
 }
 
 export const site = {
+  brand: "SamosaSheet",
   name: env(process.env.NEXT_PUBLIC_BUSINESS_NAME, "Karpagam Foods"),
   phoneDisplay: env(process.env.NEXT_PUBLIC_PHONE_DISPLAY, "+91 90953 33944"),
   phone: env(process.env.NEXT_PUBLIC_PHONE, "+919095333944"),
