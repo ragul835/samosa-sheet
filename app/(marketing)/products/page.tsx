@@ -31,5 +31,5 @@ export default function ProductsPage() {
     })),
   };
 
-  return <><PageIntro path="/products/" eyebrow="Products" title="Ready-made samosa sheets: sizes and packs" copy="Compare samosa patti in three sizes, each packed with 50 sheets. Choose a size for mini snacks, regular service or generous fillings, then enquire for current pricing." /><Products /><JsonLd data={productJsonLd} /></>;
+  return <><PageIntro path="/products/" eyebrow="Products" title="Ready-made samosa sheets: sizes and packs" copy="Compare samosa patti in three sizes, each packed with 100 sheets. Choose a size for mini snacks, regular service or generous fillings, then enquire for current pricing." /><Products /><JsonLd data={productJsonLd} /></>;
 }

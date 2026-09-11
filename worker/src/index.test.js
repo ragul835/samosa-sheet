@@ -16,7 +16,7 @@ const productPayload = {
   fields: {
     Product: "Small Samosa Sheet",
     "Sheet size": "5 × 5 inch",
-    "Pack size": "50 sheets",
+    "Pack size": "100 sheets",
     Quantity: "2 packs",
     "Customer phone": "919876543210",
     "Delivery address": "12 Test Street, Chennai 600001",
@@ -30,7 +30,7 @@ const wholesalePayload = {
     Location: "Chennai",
     Product: "Large Samosa Sheet",
     "Sheet size": "8 × 8 inch",
-    "Pack size": "50 sheets",
+    "Pack size": "100 sheets",
     Quantity: "20 packs",
     Frequency: "Weekly",
   },

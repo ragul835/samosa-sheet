@@ -53,7 +53,7 @@ export default function Navbar() {
 
         <nav aria-label="Primary navigation" className="ml-auto hidden items-center gap-1 xl:flex">
           {navigation.map(([label, href]) => (
-            <Link key={href} href={href} aria-current={pathname === href.replace(/\/$/, "") || (href === "/" && pathname === "/") ? "page" : undefined} className="whitespace-nowrap rounded-lg px-2.5 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-brand-50 hover:text-brand-700 aria-[current=page]:bg-brand-50 aria-[current=page]:text-brand-700">
+            <Link key={href} href={href} aria-current={pathname.replace(/\/$/, "") === href.replace(/\/$/, "") ? "page" : undefined} className="whitespace-nowrap rounded-lg px-2.5 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-brand-50 hover:text-brand-700 aria-[current=page]:bg-brand-50 aria-[current=page]:text-brand-700">
               {label}
             </Link>
           ))}
@@ -81,7 +81,7 @@ export default function Navbar() {
         <div id="mobile-navigation" className="absolute inset-x-0 top-full border-t border-gray-200 bg-white shadow-xl xl:hidden">
           <nav aria-label="Mobile navigation" className="container-shell grid max-h-[calc(100dvh-73px)] gap-1 overflow-y-auto overscroll-contain py-4">
             {navigation.map(([label, href]) => (
-              <Link key={href} href={href} aria-current={pathname === href.replace(/\/$/, "") || (href === "/" && pathname === "/") ? "page" : undefined} onClick={() => setOpen(false)} className="rounded-lg px-3 py-3 font-semibold text-gray-700 transition hover:bg-brand-50 hover:text-brand-700 aria-[current=page]:bg-brand-50 aria-[current=page]:text-brand-700">
+              <Link key={href} href={href} aria-current={pathname.replace(/\/$/, "") === href.replace(/\/$/, "") ? "page" : undefined} onClick={() => setOpen(false)} className="rounded-lg px-3 py-3 font-semibold text-gray-700 transition hover:bg-brand-50 hover:text-brand-700 aria-[current=page]:bg-brand-50 aria-[current=page]:text-brand-700">
                 {label}
               </Link>
             ))}
