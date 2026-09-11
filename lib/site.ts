@@ -11,11 +11,11 @@ function siteOrigin(value: string) {
 }
 
 export const site = {
-  name: env(process.env.NEXT_PUBLIC_BUSINESS_NAME, "Samosa Fresh"),
-  phoneDisplay: env(process.env.NEXT_PUBLIC_PHONE_DISPLAY, "+91 90803 33944"),
-  phone: env(process.env.NEXT_PUBLIC_PHONE, "+919080333944"),
-  whatsappDisplay: env(process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY, "+91 90803 33944"),
-  whatsapp: env(process.env.NEXT_PUBLIC_WHATSAPP, "919080333944"),
+  name: env(process.env.NEXT_PUBLIC_BUSINESS_NAME, "Karpagam Foods"),
+  phoneDisplay: env(process.env.NEXT_PUBLIC_PHONE_DISPLAY, "+91 90953 33944"),
+  phone: env(process.env.NEXT_PUBLIC_PHONE, "+919095333944"),
+  whatsappDisplay: env(process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY, "+91 90953 33944"),
+  whatsapp: env(process.env.NEXT_PUBLIC_WHATSAPP, "919095333944"),
   email: env(process.env.NEXT_PUBLIC_EMAIL, "orders@samosasheet.com"),
   address: env(
     process.env.NEXT_PUBLIC_ADDRESS,

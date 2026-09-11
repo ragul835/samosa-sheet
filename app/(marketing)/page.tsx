@@ -12,13 +12,13 @@ import { site } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, pageMetadata } from "@/lib/seo";
 
-export const metadata = pageMetadata("Ready-Made Samosa Sheets & Patti in Chennai", `Buy ready-made samosa sheets from ${site.name} in Chennai. Compare three sizes for home and wholesale orders. Contact us for prices and delivery availability.`, "/");
+export const metadata = pageMetadata("Samosa Sheets & Patti Supplier in South India", `Buy ready-made samosa sheets from ${site.name} in Chennai. Compare three sizes for home and wholesale orders across Tamil Nadu, Kerala, Karnataka, Andhra Pradesh and Telangana.`, "/");
 
 export default function Home() {
   const pageJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `Ready-Made Samosa Sheets & Patti in Chennai | ${site.name}`,
+    name: `Samosa Sheets & Patti Supplier in South India | ${site.name}`,
     url: site.domain,
     description: "Ready-made samosa sheets for retail, food-service and wholesale requirements across India.",
     primaryImageOfPage: absoluteUrl("/images/banana-leaf-samosas-hero.webp"),

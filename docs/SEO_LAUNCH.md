@@ -6,7 +6,9 @@
 - Seven indexable marketing pages in the sitemap. Privacy and terms keep their existing noindex policy and now have their own canonicals. Missing pages remain noindex with real HTTP 404 responses.
 - LocalBusiness and WebSite structured data based on the existing business configuration; one breadcrumb graph per inner marketing page. Product identities link to real product cards. No invented prices, ratings, reviews, coordinates or certifications.
 - Product image sitemap entries. Build-time timestamps removed: add `lastModified` only when an authoritative content revision date is available.
-- Chennai/Nerkundram context and natural samosa patti/wrapper terminology, useful product and wholesale links, and customer-facing FAQ answers replacing editorial placeholders.
+- Karpagam Foods identity and Chennai/Nerkundram context with natural samosa patti/wrapper terminology, useful product and wholesale links, and customer-facing FAQ answers replacing editorial placeholders.
+- South India service-area signals for Tamil Nadu, Kerala, Karnataka, Andhra Pradesh, Telangana and Puducherry, while retaining India-wide supply language. State-specific pages were not fabricated because there is no unique state-level content yet.
+- Global English discovery through a generic `.com` canonical, `en-IN` plus `x-default` alternate signals, and internationally understandable product language. No unsupported worldwide delivery promise is added; confirm export or overseas delivery before publishing that claim.
 - Native FAQ disclosure sections retain every answer in the initial HTML, matching the structured data and working without client JavaScript.
 - Business environment variables now use direct Next.js public-variable access, keeping browser contact details consistent with server metadata. Site URL validation rejects paths, queries, credentials and unsupported schemes.
 - Generic or placeholder social profiles are omitted from both the footer and structured data. An SVG favicon follows the existing SF brand mark.
@@ -42,7 +44,7 @@ Build all `NEXT_PUBLIC_*` values into the release; changing environment variable
 
 ## Remaining production and owner actions
 
-1. Confirm the configured business name, address, phone, opening hours, actual sheet dimensions and pack sizes. Verify existing claims such as “5+ years” and “100+ business customers” before publishing; this change does not independently substantiate them. Use confirmed shelf-life and allergen information from product packaging.
+1. Confirm the configured Karpagam Foods name, address, +91 90953 33944 phone, opening hours, actual sheet dimensions and pack sizes. Verify existing claims such as “5+ years” and “100+ business customers” before publishing; this change does not independently substantiate them. Use confirmed shelf-life and allergen information from product packaging.
 2. Publish the tested `out/` release through the existing hosting workflow. Configure HTTPS and a permanent www-to-non-www redirect at the domain/CDN layer, preserving paths and query strings. The Node server's page redirects do not replace domain-level redirects.
 3. Protect staging/preview deployments using host access controls or a host-specific `X-Robots-Tag: noindex`. Do not copy a preview noindex header onto the production host. Robots.txt is not an access-control mechanism.
 4. Verify domain ownership in [Google Search Console](https://search.google.com/search-console). DNS verification avoids a rebuild; alternatively set the existing `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` token and rebuild. Submit `https://samosasheet.com/sitemap.xml` and inspect the homepage, products, wholesale and contact URLs after deployment.

@@ -16,7 +16,13 @@ export function pageMetadata(title: string, description: string, path: string, i
   return {
     title: { absolute: fullTitle },
     description,
-    alternates: { canonical: absoluteUrl(path) },
+    alternates: {
+      canonical: absoluteUrl(path),
+      languages: {
+        "en-IN": absoluteUrl(path),
+        "x-default": absoluteUrl(path),
+      },
+    },
     openGraph: {
       title: fullTitle, description, url: absoluteUrl(path),
       type: "website", locale: "en_IN", siteName: site.name, images: [image],
@@ -50,16 +56,22 @@ export const organizationJsonLd = {
         postalCode: site.postalCode,
         addressCountry: "IN",
       },
-      areaServed: {
-        "@type": "Country",
-        name: "India",
-      },
+      areaServed: [
+        { "@type": "City", name: "Chennai" },
+        { "@type": "AdministrativeArea", name: "Tamil Nadu" },
+        { "@type": "AdministrativeArea", name: "Kerala" },
+        { "@type": "AdministrativeArea", name: "Karnataka" },
+        { "@type": "AdministrativeArea", name: "Andhra Pradesh" },
+        { "@type": "AdministrativeArea", name: "Telangana" },
+        { "@type": "AdministrativeArea", name: "Puducherry" },
+        { "@type": "Country", name: "India" },
+      ],
       contactPoint: {
         "@type": "ContactPoint",
         telephone: site.phone,
         contactType: "sales",
         areaServed: "IN",
-        availableLanguage: ["en", "ta"],
+        availableLanguage: ["en"],
       },
       sameAs: socialLinks,
     },

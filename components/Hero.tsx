@@ -14,7 +14,7 @@ export default function Hero() {
             Fresh & Ready-to-Use <span className="text-brand-600">Samosa Sheets</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-gray-600">
-            Ready-made samosa sheets, also known as samosa patti or samosa wrappers, from Nerkundram, Chennai. For homes, restaurants, caterers and wholesale buyers across India; contact us to confirm delivery to your location.
+            Ready-made samosa sheets, also known as samosa patti or samosa wrappers, from Karpagam Foods in Nerkundram, Chennai. Retail and wholesale supply for Tamil Nadu, Kerala, Karnataka, Andhra Pradesh, Telangana and buyers across India; contact us to confirm delivery.
           </p>
           <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
             <OrderWhatsAppButton className="btn-whatsapp w-full sm:w-auto"><MessageCircle size={19} aria-hidden="true"/> Order on WhatsApp</OrderWhatsAppButton>
