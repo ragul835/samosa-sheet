@@ -3,6 +3,10 @@
   // instead of invoking the OpenNext server adapter.
   "name": "samosa-sheet",
   "compatibility_date": "2026-09-06",
+  "routes": [
+    { "pattern": "samosasheet.com", "custom_domain": true },
+    { "pattern": "www.samosasheet.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./out",
     "html_handling": "force-trailing-slash",

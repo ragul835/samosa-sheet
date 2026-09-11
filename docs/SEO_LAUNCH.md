@@ -13,6 +13,7 @@
 - Business environment variables now use direct Next.js public-variable access, keeping browser contact details consistent with server metadata. Site URL validation rejects paths, queries, credentials and unsupported schemes.
 - Generic or placeholder social profiles are omitted from both the footer and structured data. An SVG favicon follows the existing SF brand mark.
 - The Node static server permanently redirects existing slashless pages and `index.html` aliases, preserving queries. Cloudflare already uses `force-trailing-slash` and `404-page` in `wrangler.jsonc`.
+- The website Worker declares both `samosasheet.com` and `www.samosasheet.com` as Cloudflare custom domains so the apex and www hostname are provisioned together.
 
 ## Page intent
 
