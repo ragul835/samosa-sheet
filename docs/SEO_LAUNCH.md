@@ -14,6 +14,7 @@
 - Generic or placeholder social profiles are omitted from both the footer and structured data. An SVG favicon follows the existing SF brand mark.
 - The Node static server permanently redirects existing slashless pages and `index.html` aliases, preserving queries. Cloudflare already uses `force-trailing-slash` and `404-page` in `wrangler.jsonc`.
 - The website Worker declares both `samosasheet.com` and `www.samosasheet.com` as Cloudflare custom domains so the apex and www hostname are provisioned together.
+- The static release includes HSTS. Cloudflare's zone setting **Always Use HTTPS** must also be enabled so first-time HTTP visitors receive a permanent HTTPS redirect; HSTS only takes effect after a secure response has been received.
 
 ## Page intent
 
@@ -47,6 +48,7 @@ Build all `NEXT_PUBLIC_*` values into the release; changing environment variable
 
 1. Confirm the configured Karpagam Foods name, address, +91 90953 33944 phone, opening hours, actual sheet dimensions and pack sizes. Verify existing claims such as “5+ years” and “100+ business customers” before publishing; this change does not independently substantiate them. Use confirmed shelf-life and allergen information from product packaging.
 2. Publish the tested `out/` release through the existing hosting workflow. Configure HTTPS and a permanent www-to-non-www redirect at the domain/CDN layer, preserving paths and query strings. The Node server's page redirects do not replace domain-level redirects.
+   In Cloudflare, open **SSL/TLS → Edge Certificates**, confirm Universal SSL is active, enable **Always Use HTTPS**, and set SSL/TLS encryption mode to **Full (strict)**. Test both `http://samosasheet.com` and `http://www.samosasheet.com`; each should return a 301/308 redirect to HTTPS.
 3. Protect staging/preview deployments using host access controls or a host-specific `X-Robots-Tag: noindex`. Do not copy a preview noindex header onto the production host. Robots.txt is not an access-control mechanism.
 4. Verify domain ownership in [Google Search Console](https://search.google.com/search-console). DNS verification avoids a rebuild; alternatively set the existing `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` token and rebuild. Submit `https://samosasheet.com/sitemap.xml` and inspect the homepage, products, wholesale and contact URLs after deployment.
 5. Check rendered markup using [Google's Rich Results Test](https://search.google.com/test/rich-results) and [Schema.org Validator](https://validator.schema.org/). The quote-based product list has no confirmed public prices, so it does not claim merchant-listing eligibility. Existing FAQ and HowTo markup describes the content; do not promise special Google search appearances for it.
