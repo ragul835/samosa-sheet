@@ -96,7 +96,7 @@ try {
     server.once("exit", (code) => { clearTimeout(timer); reject(new Error(`Static server exited: ${code}`)); });
     server.stderr.on("data", (chunk) => process.stderr.write(chunk));
   });
-  for (const path of [...indexable, ...excluded, "/robots.txt", "/sitemap.xml", "/icon.svg"]) {
+  for (const path of [...indexable, ...excluded, "/robots.txt", "/sitemap.xml", "/icon.png"]) {
     const response = await fetch(base + path, { redirect: "manual", signal: AbortSignal.timeout(5000) });
     assert.equal(response.status, 200, `${path}: HTTP status`);
     await response.arrayBuffer();
