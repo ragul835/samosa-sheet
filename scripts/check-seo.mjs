@@ -39,7 +39,7 @@ for (const path of [...indexable, ...excluded]) {
   const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap(([, json]) => flatten(JSON.parse(json)));
   const business = schemas.find((schema) => schema["@type"] === "LocalBusiness");
   assert.ok(business?.name && business?.telephone && business?.address?.postalCode, `${path}: local business details`);
-  assert.ok(!business.logo, `${path}: food photo must not be a logo`);
+  assert.ok(business.logo?.endsWith("/images/samosa-sheet-logo.png"), `${path}: organization logo`);
   assert.ok(!business.sameAs.some((url) => /yourbusiness/.test(url)), `${path}: placeholder social profile`);
   if (indexable.includes(path) && path !== "/") {
     const breadcrumbs = schemas.filter((schema) => schema["@type"] === "BreadcrumbList");

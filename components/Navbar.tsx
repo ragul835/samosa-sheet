@@ -2,6 +2,7 @@
 
 import { Menu, MessageCircle, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { OrderWhatsAppButton } from "@/components/OrderWhatsApp";
@@ -46,9 +47,8 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200/80 bg-white/95 shadow-sm backdrop-blur-md">
       <div className="container-shell flex min-h-[72px] items-center gap-2 py-3 sm:gap-4">
-        <Link href="/" onClick={() => setOpen(false)} className="flex min-w-0 items-center gap-2 rounded-lg font-bold text-gray-900 sm:gap-3" aria-label={`${site.name} home`}>
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-500 text-sm font-black text-gray-950 shadow-sm sm:h-11 sm:w-11" aria-hidden="true">SF</span>
-          <span className="truncate text-base sm:text-lg">{site.name}</span>
+        <Link href="/" onClick={() => setOpen(false)} className="flex min-w-0 items-center rounded-lg font-bold text-gray-900" aria-label={`${site.name} home`}>
+          <Image src="/images/samosa-sheet-logo.png" alt={`${site.name} — SamosaSheet ready-made samosa sheets`} width={2172} height={724} priority sizes="(max-width: 640px) 155px, 220px" className="h-10 w-auto max-w-[165px] object-contain sm:h-12 sm:max-w-[220px]" />
         </Link>
 
         <nav aria-label="Primary navigation" className="ml-auto hidden items-center gap-1 xl:flex">

@@ -43,6 +43,7 @@ export const organizationJsonLd = {
       "@id": absoluteUrl("/#organization"),
       name: site.name,
       url: site.domain,
+      logo: absoluteUrl("/images/samosa-sheet-logo.png"),
       image: absoluteUrl("/images/banana-leaf-samosas-hero.webp"),
       description:
         "Manufacturer and supplier of ready-made samosa sheets for homes, restaurants, caterers, retailers and wholesale buyers across India.",
