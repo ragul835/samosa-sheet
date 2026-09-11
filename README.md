@@ -65,6 +65,9 @@ Product orders, bulk enquiries and contact forms queue an email notification to
 The Cloudflare Worker in `worker/` sends queued notifications through Resend with
 automatic retries and duplicate-send protection.
 
+See the complete setup, deployment, testing, and recovery procedure in
+[`docs/ENQUIRY_EMAIL_DEPLOYMENT_RUNBOOK.md`](docs/ENQUIRY_EMAIL_DEPLOYMENT_RUNBOOK.md).
+
 1. Create the mailbox or forwarding address `orders@samosasheet.com` with your email provider.
 2. Verify the sending subdomain `mail.samosasheet.com` in Resend and create a
    sending-only API key. Resend's DNS records must remain DNS-only in Cloudflare.
@@ -74,8 +77,9 @@ automatic retries and duplicate-send protection.
 4. Change to the `worker` directory, then create the queues with
    `npx wrangler queues create samosa-sheet-enquiries` and
    `npx wrangler queues create samosa-sheet-enquiries-dlq`.
-5. From that directory, run `npx wrangler secret put RESEND_API_KEY`, then
-   `npx wrangler deploy`.
+5. From that directory, run
+   `npx wrangler secret put RESEND_API_KEY --config ./wrangler.toml`, then
+   `npx wrangler deploy --config ./wrangler.toml`.
 6. Set `NEXT_PUBLIC_ENQUIRY_API_URL=https://api.samosasheet.com/` in the website
    build environment, then redeploy the website. Never expose the Resend key in
    a `NEXT_PUBLIC_` variable.

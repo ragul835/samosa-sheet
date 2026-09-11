@@ -14,7 +14,7 @@ export default function Hero() {
             Fresh & Ready-to-Use <span className="text-brand-600">Samosa Sheets</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-gray-600">
-            Make crispy, delicious samosas easily with high-quality ready-made samosa sheets for homes, restaurants, catering businesses and food outlets across India.
+            Ready-made samosa sheets, also known as samosa patti or samosa wrappers, from Nerkundram, Chennai. For homes, restaurants, caterers and wholesale buyers across India; contact us to confirm delivery to your location.
           </p>
           <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
             <OrderWhatsAppButton className="btn-whatsapp w-full sm:w-auto"><MessageCircle size={19} aria-hidden="true"/> Order on WhatsApp</OrderWhatsAppButton>
@@ -28,8 +28,8 @@ export default function Hero() {
           </div>
         </div>
         <div className="relative rounded-[2rem] bg-gradient-to-br from-brand-100 via-white to-green-100 p-3 shadow-soft sm:p-5">
-          <Image src="/images/samosa-sheets-hero.png" alt="Ready-made samosa sheets with folded and golden fried samosas" width={1536} height={1024} priority sizes="(max-width: 1024px) 100vw, 50vw" className="aspect-[3/2] w-full rounded-[1.5rem] object-cover" />
-          <div className="absolute bottom-5 left-5 max-w-[calc(100%-2.5rem)] rounded-2xl bg-white/95 px-4 py-3 shadow-lg backdrop-blur sm:bottom-7 sm:left-7"><div className="text-xs font-bold uppercase tracking-wider text-leaf-700">Made for busy kitchens</div><div className="mt-1 font-bold">50 sheets per pack</div></div>
+          <Image src="/images/banana-leaf-samosas-hero.webp" alt="Golden triangular samosas served on fresh green banana leaves" width={1672} height={941} loading="eager" fetchPriority="high" sizes="(max-width: 1024px) 100vw, 50vw" className="aspect-[16/9] w-full rounded-[1.5rem] object-cover" />
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 px-2 pb-1"><span className="text-xs font-bold uppercase tracking-wider text-leaf-700">Made for busy kitchens</span><Link href="#gallery" className="text-sm font-semibold text-gray-900 underline decoration-brand-500 underline-offset-4 hover:text-brand-700">Explore the gallery</Link></div>
         </div>
       </div>
     </section>

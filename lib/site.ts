@@ -1,30 +1,40 @@
-const env = (key: string, fallback: string) => process.env[key] || fallback;
+// Public variables must use direct property access so Next.js can inline them
+// in browser bundles as well as render them on the server.
+const env = (value: string | undefined, fallback: string) => value?.trim() || fallback;
+
+function siteOrigin(value: string) {
+  const url = new URL(value);
+  if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password || url.pathname !== '/' || url.search || url.hash) {
+    throw new Error('NEXT_PUBLIC_SITE_URL must be an HTTP(S) origin without a path, credentials, query or fragment.');
+  }
+  return url.origin;
+}
 
 export const site = {
-  name: env("NEXT_PUBLIC_BUSINESS_NAME", "Samosa Fresh"),
-  phoneDisplay: env("NEXT_PUBLIC_PHONE_DISPLAY", "+91 90803 33944"),
-  phone: env("NEXT_PUBLIC_PHONE", "+919080333944"),
-  whatsappDisplay: env("NEXT_PUBLIC_WHATSAPP_DISPLAY", "+91 90803 33944"),
-  whatsapp: env("NEXT_PUBLIC_WHATSAPP", "919080333944"),
-  email: env("NEXT_PUBLIC_EMAIL", "orders@samosasheet.com"),
+  name: env(process.env.NEXT_PUBLIC_BUSINESS_NAME, "Samosa Fresh"),
+  phoneDisplay: env(process.env.NEXT_PUBLIC_PHONE_DISPLAY, "+91 90803 33944"),
+  phone: env(process.env.NEXT_PUBLIC_PHONE, "+919080333944"),
+  whatsappDisplay: env(process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY, "+91 90803 33944"),
+  whatsapp: env(process.env.NEXT_PUBLIC_WHATSAPP, "919080333944"),
+  email: env(process.env.NEXT_PUBLIC_EMAIL, "orders@samosasheet.com"),
   address: env(
-    "NEXT_PUBLIC_ADDRESS",
+    process.env.NEXT_PUBLIC_ADDRESS,
     "No. 88, 7th Street, Azhagammal Nagar, Nerkundram, Chennai – 600107",
   ),
-  addressLocality: env("NEXT_PUBLIC_ADDRESS_LOCALITY", "Chennai"),
-  addressRegion: env("NEXT_PUBLIC_ADDRESS_REGION", "Tamil Nadu"),
-  postalCode: env("NEXT_PUBLIC_POSTAL_CODE", "600107"),
-  hours: env("NEXT_PUBLIC_HOURS", "Monday – Saturday, 9:00 AM – 7:00 PM"),
-  domain: env("NEXT_PUBLIC_SITE_URL", "https://samosasheet.com").replace(/\/$/, ""),
-  instagram: env("NEXT_PUBLIC_INSTAGRAM", "https://instagram.com"),
-  facebook: env("NEXT_PUBLIC_FACEBOOK", "https://facebook.com"),
-  youtube: env("NEXT_PUBLIC_YOUTUBE", "https://youtube.com")
+  addressLocality: env(process.env.NEXT_PUBLIC_ADDRESS_LOCALITY, "Chennai"),
+  addressRegion: env(process.env.NEXT_PUBLIC_ADDRESS_REGION, "Tamil Nadu"),
+  postalCode: env(process.env.NEXT_PUBLIC_POSTAL_CODE, "600107"),
+  hours: env(process.env.NEXT_PUBLIC_HOURS, "Monday – Saturday, 9:00 AM – 7:00 PM"),
+  domain: siteOrigin(env(process.env.NEXT_PUBLIC_SITE_URL, "https://samosasheet.com")),
+  instagram: env(process.env.NEXT_PUBLIC_INSTAGRAM, "https://instagram.com"),
+  facebook: env(process.env.NEXT_PUBLIC_FACEBOOK, "https://facebook.com"),
+  youtube: env(process.env.NEXT_PUBLIC_YOUTUBE, "https://youtube.com")
 };
 
 const isBusinessSocialUrl = (value: string) => {
   try {
     const url = new URL(value);
-    return url.pathname !== "/" && !url.pathname.includes("yourbusiness");
+    return url.protocol === "https:" && url.pathname !== "/" && !url.pathname.includes("yourbusiness");
   } catch {
     return false;
   }

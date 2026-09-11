@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
+import { products } from "@/data/products";
 
 export const dynamic = "force-static";
 
@@ -16,11 +17,14 @@ const routes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map(({ path, changeFrequency, priority }) => ({
     url: new URL(path, `${site.domain}/`).toString(),
-    lastModified: new Date(),
     changeFrequency,
     priority,
     ...(path === "/"
-      ? { images: [`${site.domain}/images/samosa-sheets-hero.png`] }
-      : {}),
+      ? { images: ["banana-leaf-samosas-hero.webp", "banana-leaf-samosas-gallery.webp", "golden-samosas-premium-background-v3.webp", "samosa-sheets-promotional-poster.webp"].map((image) => `${site.domain}/images/${image}`) }
+      : path === "/products/"
+        ? { images: products.map((product) => `${site.domain}${product.image}`) }
+        : path === "/about/"
+          ? { images: [`${site.domain}/images/banana-leaf-samosas-gallery.webp`] }
+          : {}),
   }));
 }

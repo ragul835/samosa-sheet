@@ -1,19 +1,43 @@
+import type { Metadata } from "next";
 import { site, socialLinks } from "@/lib/site";
 
 export function absoluteUrl(path = "/") {
   return new URL(path, `${site.domain}/`).toString();
 }
 
+export function pageMetadata(title: string, description: string, path: string, index = true): Metadata {
+  const fullTitle = `${title} | ${site.name}`;
+  const image = {
+    url: absoluteUrl("/images/banana-leaf-samosas-hero.webp"),
+    width: 1672,
+    height: 941,
+    alt: "Golden triangular samosas served on green banana leaves",
+  };
+  return {
+    title: { absolute: fullTitle },
+    description,
+    alternates: { canonical: absoluteUrl(path) },
+    openGraph: {
+      title: fullTitle, description, url: absoluteUrl(path),
+      type: "website", locale: "en_IN", siteName: site.name, images: [image],
+    },
+    twitter: { card: "summary_large_image", title: fullTitle, description, images: [image] },
+    robots: {
+      index, follow: true,
+      ...(index ? { googleBot: { index: true, follow: true, "max-image-preview": "large" as const, "max-snippet": -1, "max-video-preview": -1 } } : {}),
+    },
+  };
+}
+
 export const organizationJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": "LocalBusiness",
       "@id": absoluteUrl("/#organization"),
       name: site.name,
       url: site.domain,
-      logo: absoluteUrl("/images/samosa-sheets-hero.png"),
-      image: absoluteUrl("/images/samosa-sheets-hero.png"),
+      image: absoluteUrl("/images/banana-leaf-samosas-hero.webp"),
       description:
         "Manufacturer and supplier of ready-made samosa sheets for homes, restaurants, caterers, retailers and wholesale buyers across India.",
       telephone: site.phone,

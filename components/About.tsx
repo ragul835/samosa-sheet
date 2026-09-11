@@ -5,7 +5,7 @@ export default function About() {
     <section id="about" className="section bg-gray-50">
       <div className="container-shell grid items-center gap-12 lg:grid-cols-2">
         <div className="rounded-[2rem] bg-gradient-to-br from-green-100 to-brand-100 p-3 shadow-soft sm:p-5">
-          <Image src="/images/samosa-sheet-production.png" alt="Hygienic samosa sheet preparation and packaging facility" width={1448} height={1086} sizes="(max-width: 1024px) 100vw, 50vw" className="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
+          <Image src="/images/banana-leaf-samosas-gallery.webp" alt="A generous serving of crisp golden samosas arranged on banana leaves" width={1254} height={1254} loading="lazy" sizes="(max-width: 1024px) 100vw, 50vw" className="aspect-square w-full rounded-[1.5rem] object-cover" />
         </div>
         <div>
           <span className="font-semibold uppercase tracking-widest text-brand-600">About Us</span>

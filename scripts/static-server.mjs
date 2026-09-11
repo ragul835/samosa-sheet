@@ -66,7 +66,8 @@ const server = createServer((request, response) => {
     return;
   }
 
-  const pathname = new URL(request.url || "/", "http://localhost").pathname;
+  const requestUrl = new URL(request.url || "/", "http://localhost");
+  const pathname = requestUrl.pathname;
   let filePath = resolveRequestPath(pathname);
   let fileStat;
   try {
@@ -82,6 +83,20 @@ const server = createServer((request, response) => {
       return;
     }
     response.statusCode = 404;
+  }
+
+  // Redirect only existing pages, preserving queries and real 404 responses.
+  // A fixed-origin URL prevents a double-slash path becoming an open redirect.
+  if (response.statusCode === 200 && filePath.endsWith(`${sep}index.html`)) {
+    const canonicalPath = pathname.endsWith("/index.html")
+      ? pathname.slice(0, -10)
+      : pathname.endsWith("/") ? pathname : `${pathname}/`;
+    const safePath = canonicalPath.replace(/^\/+/, "/");
+    if (safePath !== pathname) {
+      response.writeHead(308, { Location: `${safePath}${requestUrl.search}` });
+      response.end();
+      return;
+    }
   }
 
   const extension = extname(filePath).toLowerCase();
@@ -110,7 +125,7 @@ server.headersTimeout = 66_000;
 server.requestTimeout = 30_000;
 
 server.listen(port, host, () => {
-  console.log(`Production site listening on http://${host}:${port}`);
+  console.log(`Production site listening on http://${host}:${server.address().port}`);
 });
 
 function shutdown(signal) {

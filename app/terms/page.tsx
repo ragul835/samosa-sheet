@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Terms & Conditions", robots: { index: false, follow: true } };
+export const metadata: Metadata = pageMetadata("Terms & Conditions", `Read ${site.name}'s terms for samosa sheet enquiries, order confirmation, product information and delivery.`, "/terms/", false);
 
 export default function Terms() {
   return <main className="min-h-screen bg-cream py-8 sm:py-16"><article className="container-shell max-w-3xl rounded-2xl bg-white p-5 shadow-soft sm:p-10">

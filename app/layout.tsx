@@ -29,10 +29,9 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: site.domain,
     siteName: site.name,
-    images: [{ url: "/images/samosa-sheets-hero.png", width: 1536, height: 1024, alt: "Ready-made samosa sheets and golden samosas" }]
+    images: [{ url: "/images/banana-leaf-samosas-hero.webp", width: 1672, height: 941, alt: "Golden samosas served on green banana leaves" }]
   },
-  twitter: { card: "summary_large_image", title: `Ready-Made Samosa Sheets in India | ${site.name}`, description: "Fresh, hygienic and ready-to-use samosa sheets for retail and wholesale supply across India.", images: ["/images/samosa-sheets-hero.png"] },
-  alternates: { canonical: "/" },
+  twitter: { card: "summary_large_image", title: `Ready-Made Samosa Sheets in India | ${site.name}`, description: "Fresh, hygienic and ready-to-use samosa sheets for retail and wholesale supply across India.", images: ["/images/banana-leaf-samosas-hero.webp"] },
   robots: { index: true, follow: true },
   category: "Food supplier",
   referrer: "strict-origin-when-cross-origin",

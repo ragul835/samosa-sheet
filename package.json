@@ -7,7 +7,8 @@
     "build": "next build --webpack",
     "start": "node scripts/static-server.mjs",
     "lint": "tsc --noEmit",
-    "test:worker": "npm --prefix worker test"
+    "test:worker": "npm --prefix worker test",
+    "test:seo": "node scripts/check-seo.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

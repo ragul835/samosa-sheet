@@ -1,8 +1,11 @@
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/seo";
 
-export default function PageIntro({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) {
+export default function PageIntro({ eyebrow, title, copy, path }: { eyebrow: string; title: string; copy: string; path: string }) {
   return (
     <header className="bg-cream py-12 sm:py-14 md:py-20">
+      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: eyebrow, path }])} />
       <div className="container-shell max-w-4xl text-center">
         <nav aria-label="Breadcrumb" className="mb-5 text-sm text-gray-500">
           <Link href="/" className="font-semibold text-leaf-700 hover:text-brand-700">Home</Link>

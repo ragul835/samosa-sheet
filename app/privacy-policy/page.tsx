@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Privacy Policy", robots: { index: false, follow: true } };
+export const metadata: Metadata = pageMetadata("Privacy Policy", `How ${site.name} handles contact details, order enquiries and third-party services.`, "/privacy-policy/", false);
 
 export default function PrivacyPolicy() {
   return <main className="min-h-screen bg-cream py-8 sm:py-16"><article className="container-shell max-w-3xl rounded-2xl bg-white p-5 shadow-soft sm:p-10">
