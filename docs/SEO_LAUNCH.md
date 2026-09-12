@@ -4,7 +4,7 @@
 
 - Unique titles, descriptions, self-referencing canonical URLs and matching Open Graph/Twitter metadata for all nine content pages.
 - Seven indexable marketing pages in the sitemap. Privacy and terms keep their existing noindex policy and now have their own canonicals. Missing pages remain noindex with real HTTP 404 responses.
-- LocalBusiness and WebSite structured data based on the existing business configuration; one breadcrumb graph per inner marketing page. Product identities link to real product cards. No invented prices, ratings, reviews, coordinates or certifications.
+- LocalBusiness and WebSite structured data based on the existing business configuration; one breadcrumb graph per inner marketing page. The enquiry-only catalogue uses descriptive ItemList/ListItem entries linking to real product cards. Product markup is omitted because no public offers or product reviews are available. No invented prices, ratings, reviews, coordinates or certifications.
 - Product image sitemap entries. Build-time timestamps removed: add `lastModified` only when an authoritative content revision date is available.
 - Karpagam Foods identity and Chennai/Nerkundram context with natural samosa patti/wrapper terminology, useful product and wholesale links, and customer-facing FAQ answers replacing editorial placeholders.
 - South India service-area signals for Tamil Nadu, Kerala, Karnataka, Andhra Pradesh, Telangana and Puducherry, while retaining India-wide supply language. State-specific pages were not fabricated because there is no unique state-level content yet.

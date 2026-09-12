@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Products from "@/components/Products";
 import PageIntro from "@/components/PageIntro";
-import { site } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, pageMetadata } from "@/lib/seo";
 import { products } from "@/data/products";
 
-export const metadata: Metadata = pageMetadata("Samosa Sheets & Patti: Sizes and Packs", "Compare small 5-inch, medium 7-inch and large 8-inch samosa sheets in packs of 50. Enquire about prices and availability for home or bulk orders.", "/products/");
+const packQuantities = Array.from(new Set(products.map((product) => product.quantity))).join(" or ");
+export const metadata: Metadata = pageMetadata("Samosa Sheets & Patti: Sizes and Packs", `Compare small 5-inch, medium 7-inch and large 8-inch samosa sheets. Packs contain ${packQuantities}. Enquire for retail or wholesale prices.`, "/products/");
 export default function ProductsPage() {
+  // This enquiry-only catalogue has no public offers or product reviews.
+  // Keep list entries descriptive until genuine Product rich-result data exists.
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -15,19 +17,10 @@ export default function ProductsPage() {
     itemListElement: products.map((product, position) => ({
       "@type": "ListItem",
       position: position + 1,
-      item: {
-        "@type": "Product",
-        "@id": absoluteUrl(`/products/#product-${product.id}`),
-        url: absoluteUrl(`/products/#product-${product.id}`),
-        brand: { "@type": "Brand", name: site.name },
-        name: product.name,
-        description: product.description,
-        image: absoluteUrl(product.image),
-        additionalProperty: [
-          { "@type": "PropertyValue", name: "Sheet size", value: product.size },
-          { "@type": "PropertyValue", name: "Pack quantity", value: product.quantity },
-        ],
-      },
+      url: absoluteUrl(`/products/#product-${product.id}`),
+      name: product.name,
+      description: `${product.description} Size: ${product.size}. Pack: ${product.quantity}.`,
+      image: absoluteUrl(product.image),
     })),
   };
 

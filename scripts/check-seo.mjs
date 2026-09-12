@@ -47,6 +47,27 @@ for (const path of [...indexable, ...excluded]) {
     assert.equal(breadcrumbs[0].itemListElement.at(-1).item, origin + path);
   }
   const visibleText = decode(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "").replace(/<[^>]+>/g, " "));
+  if (path === "/products/") {
+    const catalogue = schemas.find((schema) => schema["@type"] === "ItemList");
+    assert.ok(catalogue?.itemListElement.length, "Product catalogue is present");
+    const schemaTypes = [];
+    JSON.stringify(schemas, (key, value) => {
+      if (key === "@type") schemaTypes.push(...[].concat(value));
+      return value;
+    });
+    assert.ok(!schemaTypes.includes("Product"), "Enquiry-only catalogue must not emit incomplete Product rich-result markup");
+    for (const [position, item] of catalogue.itemListElement.entries()) {
+      assert.equal(item["@type"], "ListItem");
+      assert.equal(item.position, position + 1);
+      const url = new URL(item.url);
+      assert.equal(url.origin + url.pathname, origin + path);
+      assert.ok(url.hash && html.includes(`id="${url.hash.slice(1)}"`), "Catalogue entry links to a real product card");
+      assert.ok(visibleText.includes(item.name), "Catalogue name appears on the page");
+      const quantity = item.description.match(/Pack: (.+)\.$/)?.[1];
+      assert.ok(quantity && description[0].includes(quantity) && visibleText.includes(quantity), "Catalogue and visible pack quantities agree");
+      await access(resolve(root, `.${new URL(item.image).pathname}`));
+    }
+  }
   assert.doesNotMatch(visibleText, /Update them based|should be updated|yourbusiness/i, `${path}: unfinished copy`);
   for (const schema of schemas.filter((schema) => schema["@type"] === "FAQPage")) {
     for (const question of schema.mainEntity) {
