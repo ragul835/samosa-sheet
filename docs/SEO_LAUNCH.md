@@ -13,7 +13,8 @@
 - Business environment variables now use direct Next.js public-variable access, keeping browser contact details consistent with server metadata. Site URL validation rejects paths, queries, credentials and unsupported schemes.
 - Generic or placeholder social profiles are omitted from both the footer and structured data. An SVG favicon follows the existing SF brand mark.
 - The Node static server permanently redirects existing slashless pages and `index.html` aliases, preserving queries. Cloudflare already uses `force-trailing-slash` and `404-page` in `wrangler.jsonc`.
-- The website Worker declares both `samosasheet.com` and `www.samosasheet.com` as Cloudflare custom domains so the apex and www hostname are provisioned together.
+- The website Worker declares both `samosasheet.com` and `www.samosasheet.com` as Cloudflare custom domains. `scripts/site-worker.mjs` runs before asset lookup to permanently redirect www and HTTP production requests to `https://samosasheet.com`, preserving paths and query strings. Canonical requests pass through to the ASSETS binding, retaining static headers, slash redirects and 404 handling. This adds a Worker invocation per request; monitor Workers usage after release.
+- Page titles and Open Graph site names consistently identify SamosaSheet. WebSite aliases include Samosa Sheet and the canonical hostname; the visible homepage/footer connect that name with Karpagam Foods. Catalogue descriptions use the actual sheet sizes and pack quantities.
 - The static release includes HSTS. Cloudflare's zone setting **Always Use HTTPS** must also be enabled so first-time HTTP visitors receive a permanent HTTPS redirect; HSTS only takes effect after a secure response has been received.
 
 ## Page intent
@@ -56,11 +57,35 @@ Build all `NEXT_PUBLIC_*` values into the release; changing environment variable
 7. Measure mobile performance on the live domain with [PageSpeed Insights](https://pagespeed.web.dev/). The supplied WebP photos now replace the large hero and About PNGs: approximately 157 KB each. All four supplied images total approximately 610 KB. The hero loads eagerly with high fetch priority; the gallery and About images load lazily with reserved dimensions. The poster retains its full aspect ratio and opens at full size. Original PNG files remain available for recovery but are no longer referenced by the pages or metadata. No live Core Web Vitals score was established in this pass.
 8. Monitor Search Console indexing, selected canonicals, impressions, clicks and enquiries after launch. Record a baseline, then review changes over the following weeks. Search visibility and rankings are not guaranteed by metadata or structured data.
 
-The public domain could not be inspected through the browser tool during this implementation. Deployment, live redirects, live indexing, Search Console ownership and Business Profile status remain unverified.
+### Live audit: 12 September 2026, before this release
+
+HTTPS homepage returned 200, robots.txt allowed crawling and advertised the sitemap, HTTP apex redirected to HTTPS with 301, and a nonexistent page returned 404. However, `https://www.samosasheet.com/products/` returned 200 instead of redirecting to the canonical hostname. The release's Worker fixes this duplicate-host behavior once deployed. The live homepage contained the previous title and description. No HTML Google verification token was present; DNS verification and actual indexing status cannot be inferred from that.
+
+After publishing, use Search Console URL Inspection on `https://samosasheet.com/`, run **Test live URL**, and request indexing if eligible. Submit `https://samosasheet.com/sitemap.xml`. Review Google-selected canonical and Page indexing exclusions; use the Performance report to track `samosasheet` and `samosa sheet` separately. Search results from this audit are not a verified Google rank measurement.
+
+The saved Cloudflare login initially expired. After the owner authenticated again, this release was deployed successfully on 12 September 2026. Cloudflare version: `3624b56d-1760-4972-a786-efb13c8614e5`, on both production custom domains.
+
+Live verification passed: homepage 200 with the new title, visible brand copy and WebSite aliases; product description specifies 100 sheets; robots.txt permits crawling and advertises the seven-page sitemap; www product URL redirects with 308 and preserves its query string; HTTP apex redirects with 301; missing URL returns 404. Search Console submission and Google indexing/ranking remain unverified.
+
+For future releases, authenticate if needed and run from the repository root:
+
+```bash
+npx wrangler login
+npm run build
+npm run lint
+npm run test:seo
+npx wrangler deploy --config wrangler.jsonc
+```
+
+Verify `https://www.samosasheet.com/products/?source=search` returns 308 with `Location: https://samosasheet.com/products/?source=search`, the apex homepage returns 200 with the updated title, and an unknown URL still returns 404. The Node SEO suite tests the redirect handler and exported site; the Wrangler dry run validates packaging but does not prove deployed behavior.
+
+“Samosa sheet” is also a general product query. Code cannot remove Amazon or Google's Popular products module, force the module below this website, or guarantee first place. This quote-based catalogue has no public prices or online checkout; do not invent offers, stock status or review ratings to seek shopping results. Search Console ownership and Business Profile status still require the owner's account access.
 
 ## Guidance used
 
 - [Google canonical URL guidance](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls)
+- [Google site-name guidance](https://developers.google.com/search/docs/appearance/site-names)
+- [Cloudflare Worker-first static asset routing](https://developers.cloudflare.com/workers/static-assets/routing/worker-script/)
 - [Google sitemap guidance](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)
 - [Google LocalBusiness structured data](https://developers.google.com/search/docs/appearance/structured-data/local-business)
 - [Google Search documentation updates](https://developers.google.com/search/updates): FAQ rich results were retired in May 2026.

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.domain),
   title: {
     default: `${site.brand} | Samosa Sheets & Patti Supplier in South India`,
-    template: `%s | ${site.name}`,
+    template: `%s | ${site.brand}`,
   },
   description:
     "Karpagam Foods supplies ready-made samosa sheets and samosa patti from Chennai to homes, restaurants, caterers and wholesale buyers across South India and India.",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: site.domain,
-    siteName: site.name,
+    siteName: site.brand,
     images: [{ url: "/images/banana-leaf-samosas-hero.webp", width: 1672, height: 941, alt: "Golden samosas served on green banana leaves" }]
   },
   twitter: { card: "summary_large_image", title: `${site.brand} | Samosa Sheets & Patti Supplier in South India`, description: "Ready-made samosa sheets from Chennai for retail and wholesale supply across South India and India.", images: ["/images/banana-leaf-samosas-hero.webp"] },

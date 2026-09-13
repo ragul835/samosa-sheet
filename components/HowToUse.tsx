@@ -1,4 +1,5 @@
 import { Check, ChefHat, PlayCircle } from "lucide-react";
+import Image from "next/image";
 
 const steps = [
   {
@@ -78,17 +79,32 @@ export default function HowToUse() {
                 <p className="mt-1 text-sm text-green-100/75">A practical visual guide to shaping samosas with ready-made sheets.</p>
               </div>
             </div>
-            <div className="aspect-video overflow-hidden rounded-2xl bg-black shadow-inner">
-              <iframe
-                className="h-full w-full border-0"
-                src="https://www.youtube-nocookie.com/embed/DbwGhWJ-IsU?rel=0"
-                title="How to fold samosas using samosa sheets"
+            <a
+              href="https://www.youtube.com/watch?v=DbwGhWJ-IsU"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Watch the samosa folding technique on YouTube (opens in a new tab)"
+              className="group relative block aspect-video overflow-hidden rounded-2xl bg-black shadow-inner focus-visible:outline-white"
+            >
+              <Image
+                src="/images/samosa-sheet-rectangle-folding-v2.webp"
+                alt="Hands folding a rectangular samosa sheet around vegetable filling"
+                fill
                 loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
+                sizes="(max-width: 1023px) calc(100vw - 3rem), 720px"
+                className="object-cover transition duration-500 group-hover:scale-[1.025]"
               />
-            </div>
+              <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-black/10" />
+              <span className="absolute inset-0 grid place-items-center">
+                <span className="grid h-16 w-16 place-items-center rounded-full border border-white/40 bg-white/95 text-leaf-900 shadow-2xl transition duration-300 group-hover:scale-105 group-hover:bg-brand-500">
+                  <PlayCircle className="h-8 w-8" aria-hidden="true" />
+                </span>
+              </span>
+              <span className="absolute inset-x-5 bottom-5 flex items-center justify-between gap-3 text-sm font-bold text-white">
+                <span>See the complete folding guide</span>
+                <span className="rounded-full border border-white/30 bg-black/35 px-3 py-1.5 backdrop-blur-sm">Watch on YouTube ↗</span>
+              </span>
+            </a>
           </div>
 
           <aside className="border-t border-white/10 bg-white/5 p-6 sm:p-8 lg:border-l lg:border-t-0" aria-label="Samosa preparation tips">

@@ -6,7 +6,7 @@ export function absoluteUrl(path = "/") {
 }
 
 export function pageMetadata(title: string, description: string, path: string, index = true): Metadata {
-  const fullTitle = `${title} | ${site.name}`;
+  const fullTitle = `${title} | ${site.brand}`;
   const image = {
     url: absoluteUrl("/images/banana-leaf-samosas-hero.webp"),
     width: 1672,
@@ -25,7 +25,7 @@ export function pageMetadata(title: string, description: string, path: string, i
     },
     openGraph: {
       title: fullTitle, description, url: absoluteUrl(path),
-      type: "website", locale: "en_IN", siteName: site.name, images: [image],
+      type: "website", locale: "en_IN", siteName: site.brand, images: [image],
     },
     twitter: { card: "summary_large_image", title: fullTitle, description, images: [image] },
     robots: {
@@ -81,7 +81,7 @@ export const organizationJsonLd = {
       "@type": "WebSite",
       "@id": absoluteUrl("/#website"),
       name: site.brand,
-      alternateName: [site.name, "Samosa Sheet"],
+      alternateName: ["Samosa Sheet", new URL(site.domain).hostname, site.name],
       url: site.domain,
       publisher: { "@id": absoluteUrl("/#organization") },
       inLanguage: "en-IN",

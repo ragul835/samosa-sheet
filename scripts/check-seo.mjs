@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile, access } from "node:fs/promises";
 import { resolve } from "node:path";
 import { spawn } from "node:child_process";
+import siteWorker from "./site-worker.mjs";
 
 const root = resolve("out");
 const indexable = ["/", "/products/", "/wholesale/", "/how-to-use/", "/about/", "/faq/", "/contact/"];
@@ -38,6 +39,10 @@ for (const path of [...indexable, ...excluded]) {
 
   const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap(([, json]) => flatten(JSON.parse(json)));
   const business = schemas.find((schema) => schema["@type"] === "LocalBusiness");
+  const website = schemas.find((schema) => schema["@type"] === "WebSite");
+  assert.equal(website?.name, "SamosaSheet", `${path}: consistent site name`);
+  assert.ok(website.alternateName.includes("Samosa Sheet") && website.alternateName.includes(new URL(origin).hostname), `${path}: brand aliases`);
+  assert.deepEqual(meta(html, "og:site_name"), [website.name], `${path}: social site name matches schema`);
   assert.ok(business?.name && business?.telephone && business?.address?.postalCode, `${path}: local business details`);
   assert.ok(business.logo?.endsWith("/images/samosa-sheet-logo.png"), `${path}: organization logo`);
   assert.ok(!business.sameAs.some((url) => /yourbusiness/.test(url)), `${path}: placeholder social profile`);
@@ -98,6 +103,25 @@ const robots = await readFile(resolve(root, "robots.txt"), "utf8");
 assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`) && robots.includes("Allow: /"));
 const notFound = await readFile(resolve(root, "404.html"), "utf8");
 assert.match(meta(notFound, "robots").join(","), /noindex/, "404 must be noindex");
+
+for (const origin of ["https://www.samosasheet.com", "http://www.samosasheet.com", "http://samosasheet.com"]) {
+  for (const path of ["/", "/products/?source=search&size=small", "/images/samosa-sheet-small.webp", "/missing-page/"]) {
+    const response = await siteWorker.fetch(new Request(origin + path), {
+      ASSETS: { fetch() { assert.fail("Aliases must redirect before asset lookup"); } },
+    });
+    assert.equal(response.status, 308);
+    assert.equal(response.headers.get("location"), "https://samosasheet.com" + path);
+  }
+}
+for (const status of [200, 404]) {
+  const request = new Request("https://samosasheet.com/example/", { method: "HEAD" });
+  const assetResponse = new Response(null, { status, headers: { "x-content-type-options": "nosniff" } });
+  const response = await siteWorker.fetch(request, {
+    ASSETS: { fetch(incoming) { assert.equal(incoming, request); return assetResponse; } },
+  });
+  assert.equal(response, assetResponse, "Canonical requests preserve asset statuses and headers");
+}
+console.log("SEO passed: canonical domain redirects preserve paths and queries");
 
 // Use a dedicated ephemeral port; leave any running user servers untouched.
 const server = spawn(process.execPath, ["scripts/static-server.mjs"], {

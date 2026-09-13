@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="bg-leaf-900 py-12 text-green-50">
       <div className="container-shell grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-        <div><div className="text-xl font-bold text-white">{site.name}</div><p className="mt-3 text-sm leading-6 text-green-100">Fresh, ready-made samosa sheets for home, restaurants, catering and wholesale supply.</p></div>
+        <div><Link href="/" className="text-xl font-bold text-white">{site.brand}</Link><p className="mt-2 text-sm text-green-100">By {site.name}</p><p className="mt-3 text-sm leading-6 text-green-100">Fresh, ready-made samosa sheets for home, restaurants, catering and wholesale supply.</p></div>
         <div><h3 className="font-bold text-white">Quick Links</h3><div className="mt-3 flex flex-col items-start gap-2 text-sm">{links.map(([label,href]) => <Link className="hover:text-brand-500" key={href} href={href}>{label}</Link>)}</div></div>
         <div className="min-w-0"><h3 className="font-bold text-white">Contact</h3><div className="mt-3 flex min-w-0 flex-col items-start gap-2 text-sm text-green-100"><a href={`tel:${site.phone}`}>{site.phoneDisplay}</a><OrderWhatsAppButton className="text-left hover:text-white">Order on WhatsApp</OrderWhatsAppButton><a href={`mailto:${site.email}`} className="max-w-full break-all">{site.email}</a><span className="break-words">{site.address}</span></div></div>
         <div><h3 className="font-bold text-white">Ordering Help</h3><p className="mt-3 text-sm leading-6 text-green-100">Compare sheet sizes, ask about bulk supply or check delivery availability with our team.</p><Link href="/faq/" className="mt-3 inline-block text-sm underline underline-offset-4 hover:text-brand-500">Samosa sheet ordering FAQs</Link>{socialLinks.length > 0 && <div className="mt-4 flex gap-3">{[{ label: "Instagram", href: site.instagram, Icon: Instagram }, { label: "Facebook", href: site.facebook, Icon: Facebook }, { label: "YouTube", href: site.youtube, Icon: Youtube }].filter(({ href }) => socialLinks.includes(href)).map(({ label, href, Icon }) => <a key={label} aria-label={label} href={href} target="_blank" rel="noopener noreferrer" className="grid h-11 w-11 place-items-center rounded-full bg-white/10 hover:bg-brand-500 hover:text-gray-950"><Icon size={20}/></a>)}</div>}</div>
@@ -17,7 +17,6 @@ export default function Footer() {
           <div>© {new Date().getFullYear()} {site.name}. All Rights Reserved.</div>
           <div className="flex flex-wrap gap-x-4 gap-y-2"><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms & Conditions</a></div>
         </div>
-        <div className="mt-6 text-center text-green-200/80">Designed and developed by </div>
       </div>
     </footer>
   );

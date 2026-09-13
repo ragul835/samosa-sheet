@@ -11,11 +11,11 @@ export default function Benefits() {
   return (
     <section id="benefits" className="section bg-cream">
       <div className="container-shell">
-        <div className="text-center"><h2 className="section-title">Why Choose Our Samosa Sheets?</h2><p className="section-copy mx-auto">Made for convenience, consistency and reliable food preparation.</p></div>
+        <div className="text-center"><p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-brand-700">The Karpagam standard</p><h2 className="section-title">Why Choose Our Samosa Sheets?</h2><p className="section-copy mx-auto">Made for convenience, consistency and reliable food preparation.</p></div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {items.map(([Icon,title,copy]) => { const C = Icon as typeof Clock3; return (
-            <div key={String(title)} className="rounded-2xl bg-white p-6 shadow-soft">
-              <div className="grid h-12 w-12 place-items-center rounded-xl bg-brand-100 text-brand-700"><C size={24}/></div>
+            <div key={String(title)} className="rounded-3xl border border-stone-200/70 bg-white/90 p-6 shadow-[0_14px_40px_rgba(52,42,26,0.06)] transition duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_20px_50px_rgba(52,42,26,0.1)]">
+              <div className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-100 text-brand-700"><C size={24}/></div>
               <h3 className="mt-5 text-lg font-bold">{String(title)}</h3><p className="mt-2 text-sm leading-6 text-gray-600">{String(copy)}</p>
             </div>
           )})}

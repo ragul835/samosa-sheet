@@ -2,6 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+const processGallery = [
+  {
+    src: "/images/samosa-sheets-rectangle-separation-v2.webp",
+    alt: "A thin rectangular samosa sheet being gently lifted from a fresh stack",
+    title: "Delicately thin",
+    copy: "Easy-to-separate sheets with a light, flexible texture.",
+  },
+  {
+    src: "/images/samosa-sheet-rectangle-folding-v2.webp",
+    alt: "Hands folding a thin rectangular samosa sheet around vegetable filling",
+    title: "Simple to shape",
+    copy: "Flexible sheets that fold neatly around your chosen filling.",
+  },
+  {
+    src: "/images/samosas-premium-serving.webp",
+    alt: "Golden samosas served with mint and tamarind chutneys",
+    title: "Crisp, golden results",
+    copy: "A delicate shell with the satisfying crunch every serving deserves.",
+  },
+];
+
 export default function Gallery() {
   return (
     <section id="gallery" aria-labelledby="gallery-title" className="section overflow-hidden bg-cream">
@@ -14,7 +35,20 @@ export default function Gallery() {
           </div>
           <Link href="/products/" className="inline-flex shrink-0 items-center gap-2 self-start rounded-xl border border-leaf-700/20 px-5 py-3 font-semibold text-leaf-700 transition hover:bg-white md:self-auto">Explore samosa sheets <ArrowUpRight size={18} aria-hidden="true" /></Link>
         </div>
-        <div className="grid items-start gap-6 md:grid-cols-2 lg:gap-8">
+        <div className="grid gap-6 md:grid-cols-3">
+          {processGallery.map((image) => (
+            <figure key={image.src} className="group overflow-hidden rounded-3xl border border-brand-100 bg-white shadow-soft">
+              <div className="relative aspect-[3/2] overflow-hidden bg-stone-100">
+                <Image src={image.src} alt={image.alt} fill loading="lazy" sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1279px) calc(33vw - 2rem), 389px" className="object-cover transition duration-500 group-hover:scale-[1.025]" />
+              </div>
+              <figcaption className="px-5 py-5 sm:px-6">
+                <p className="text-lg font-bold text-gray-900">{image.title}</p>
+                <p className="mt-1 text-sm leading-6 text-gray-600">{image.copy}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        <div className="mt-8 grid items-start gap-6 md:grid-cols-2 lg:gap-8">
           <figure className="overflow-hidden rounded-3xl bg-leaf-900 shadow-soft">
             <div className="relative aspect-[1054/1492] overflow-hidden">
               <Image src="/images/golden-samosas-premium-background-v3.webp" alt="Crisp golden samosas piled in a round stainless steel serving tray" fill loading="lazy" sizes="(max-width: 767px) 100vw, 50vw" className="object-cover" />

@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency,
     priority,
     ...(path === "/"
-      ? { images: ["banana-leaf-samosas-hero.webp", "banana-leaf-samosas-gallery.webp", "golden-samosas-premium-background-v3.webp", "samosa-sheets-promotional-poster.webp"].map((image) => `${site.domain}/images/${image}`) }
+      ? { images: ["banana-leaf-samosas-hero.webp", "banana-leaf-samosas-gallery.webp", "samosa-sheets-easy-separation.webp", "samosa-sheet-folding.webp", "samosas-premium-serving.webp", "golden-samosas-premium-background-v3.webp", "samosa-sheets-promotional-poster.webp"].map((image) => `${site.domain}/images/${image}`) }
       : path === "/products/"
         ? { images: products.map((product) => `${site.domain}${product.image}`) }
         : path === "/about/"
