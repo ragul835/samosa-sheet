@@ -70,3 +70,4 @@ Please confirm the price, availability, payment method and delivery details.`);
 }
 
 export const directionsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`;
+export const mapEmbedLink = `https://www.google.com/maps?q=${encodeURIComponent(site.address)}&output=embed`;

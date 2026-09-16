@@ -73,6 +73,13 @@ for (const path of [...indexable, ...excluded]) {
       await access(resolve(root, `.${new URL(item.image).pathname}`));
     }
   }
+  if (path === "/contact/") {
+    const mapFrames = [...html.matchAll(/<iframe\s[^>]*>/g)].map(([tag]) => attrs(tag));
+    assert.equal(mapFrames.length, 1, "Contact page has exactly one location map");
+    assert.match(mapFrames[0].src, /^https:\/\/www\.google\.com\/maps\?/);
+    assert.equal(new URL(mapFrames[0].src).searchParams.get("output"), "embed");
+    assert.ok(mapFrames[0].title && mapFrames[0].loading === "lazy", "Location map is accessible and lazy-loaded");
+  }
   assert.doesNotMatch(visibleText, /Update them based|should be updated|yourbusiness/i, `${path}: unfinished copy`);
   for (const schema of schemas.filter((schema) => schema["@type"] === "FAQPage")) {
     for (const question of schema.mainEntity) {
