@@ -22,7 +22,7 @@ export default function Home() {
     name: `Samosa Sheet & Patti Supplier | ${site.brand}`,
     url: absoluteUrl("/"),
     description: metadata.description,
-    primaryImageOfPage: absoluteUrl("/images/samosa-sheets-natural-premium-hero-v2.webp"),
+    primaryImageOfPage: absoluteUrl("/images/samosa-sheets-rectangular-premium-hero-v3.webp"),
     about: "Ready-made samosa sheets",
     isPartOf: { "@id": absoluteUrl("/#website") },
     publisher: { "@id": absoluteUrl("/#organization") },

@@ -5,7 +5,7 @@ import { products } from "@/data/products";
 export const dynamic = "force-static";
 
 const homeImages = [
-  "/images/samosa-sheets-natural-premium-hero-v2.webp",
+  "/images/samosa-sheets-rectangular-premium-hero-v3.webp",
   ...products.map((product) => product.image),
   "/images/samosa-sheets-rectangle-separation-v2.webp",
   "/images/samosa-sheet-rectangle-folding-v2.webp",

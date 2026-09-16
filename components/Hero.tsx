@@ -31,7 +31,7 @@ export default function Hero() {
         </div>
         <div className="relative rounded-[2rem] border border-white/80 bg-white/70 p-2 shadow-[0_30px_80px_rgba(54,43,25,0.16)] sm:p-3">
           <div className="relative overflow-hidden rounded-[1.55rem]">
-            <Image src="/images/samosa-sheets-natural-premium-hero-v2.webp" alt="Natural thin square samosa sheets beside crisp golden vegetable samosas" width={1672} height={941} preload sizes="(max-width: 1024px) calc(100vw - 2rem), 50vw" className="aspect-[16/9] w-full object-cover" />
+            <Image src="/images/samosa-sheets-rectangular-premium-hero-v3.webp" alt="Natural thin rectangular samosa sheets beside crisp golden vegetable samosas" width={1672} height={941} preload sizes="(max-width: 1024px) calc(100vw - 2rem), 50vw" className="aspect-[16/9] w-full object-cover" />
             <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
             <div className="absolute inset-x-3 bottom-3 flex items-end justify-end gap-3 sm:inset-x-5 sm:bottom-5">
               <span className="hidden rounded-full border border-white/40 bg-white/90 px-3 py-2 text-xs font-bold text-leaf-900 shadow-sm sm:inline-flex">100 sheets / pack</span>
