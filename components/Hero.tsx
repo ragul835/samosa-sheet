@@ -13,7 +13,7 @@ export default function Hero() {
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-leaf-800/10 bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-leaf-800 shadow-sm backdrop-blur">Fresh • Hygienic • Ready to use</span>
           <h1 className="mt-6 max-w-2xl break-words text-4xl font-extrabold leading-[1.04] tracking-[-0.045em] text-gray-950 sm:text-5xl xl:text-[4rem]">
-            <span className="text-brand-600">Fresh samosa sheets.</span><br />Made for the perfect fold.
+            <span className="text-brand-600">{site.brand}: fresh samosa sheets.</span><br />Made for the perfect fold.
           </h1>
           <p className="mt-6 max-w-xl text-base leading-7 text-gray-600 sm:text-lg sm:leading-8">
             Ready-to-use samosa sheets by {site.name}, Chennai—consistently thin, easy to fold and available in three sizes for homes and professional kitchens.

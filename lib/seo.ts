@@ -43,6 +43,11 @@ export const organizationJsonLd = {
       "@id": absoluteUrl("/#organization"),
       name: site.name,
       alternateName: [site.brand, "Samosa Sheet"],
+      brand: {
+        "@type": "Brand",
+        name: site.brand,
+        alternateName: "Samosa Sheet",
+      },
       url: site.domain,
       logo: absoluteUrl("/images/samosa-sheet-logo.png"),
       image: absoluteUrl("/images/banana-leaf-samosas-hero.webp"),
@@ -84,6 +89,11 @@ export const organizationJsonLd = {
       alternateName: ["Samosa Sheet", new URL(site.domain).hostname, site.name],
       url: site.domain,
       publisher: { "@id": absoluteUrl("/#organization") },
+      about: {
+        "@type": "Thing",
+        name: "Samosa sheets",
+        alternateName: ["Samosa patti", "Samosa wrappers"],
+      },
       inLanguage: "en-IN",
     },
   ],

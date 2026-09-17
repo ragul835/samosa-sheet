@@ -52,6 +52,14 @@ for (const path of [...indexable, ...excluded]) {
     assert.equal(breadcrumbs[0].itemListElement.at(-1).item, origin + path);
   }
   const visibleText = decode(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "").replace(/<[^>]+>/g, " "));
+  if (path === "/") {
+    const h1 = decode(html.match(/<h1(?:\s[^>]*)?>([\s\S]*?)<\/h1>/)?.[1]?.replace(/<[^>]+>/g, " ") || "");
+    assert.match(h1, /SamosaSheet/i, "Homepage H1 contains the exact brand name");
+    assert.match(h1, /samosa sheets/i, "Homepage H1 describes the primary product");
+    assert.equal(business?.brand?.name, "SamosaSheet", "Business schema links the product brand to the company");
+    assert.equal(business?.brand?.alternateName, "Samosa Sheet", "Business schema includes the spaced brand alias");
+    assert.equal(website?.about?.name, "Samosa sheets", "Website schema identifies the primary topic");
+  }
   if (path === "/products/") {
     const catalogue = schemas.find((schema) => schema["@type"] === "ItemList");
     assert.ok(catalogue?.itemListElement.length, "Product catalogue is present");

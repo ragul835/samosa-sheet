@@ -15,6 +15,7 @@
 - The Node static server permanently redirects existing slashless pages and `index.html` aliases, preserving queries. Cloudflare already uses `force-trailing-slash` and `404-page` in `wrangler.jsonc`.
 - The website Worker declares both `samosasheet.com` and `www.samosasheet.com` as Cloudflare custom domains. `scripts/site-worker.mjs` runs before asset lookup to permanently redirect www and HTTP production requests to `https://samosasheet.com`, preserving paths and query strings. Canonical requests pass through to the ASSETS binding, retaining static headers, slash redirects and 404 handling. This adds a Worker invocation per request; monitor Workers usage after release.
 - Page titles and Open Graph site names consistently identify SamosaSheet. WebSite aliases include Samosa Sheet and the canonical hostname; the visible homepage/footer connect that name with Karpagam Foods. Catalogue descriptions use the actual sheet sizes and pack quantities.
+- The homepage H1 now leads with the exact SamosaSheet brand and its primary product phrase. LocalBusiness schema links SamosaSheet (alternate name: Samosa Sheet) to Karpagam Foods, and WebSite schema explicitly identifies samosa sheets, samosa patti and samosa wrappers as the site topic. The SEO release test protects these entity signals from accidental removal.
 - The static release includes HSTS. Cloudflare's zone setting **Always Use HTTPS** must also be enabled so first-time HTTP visitors receive a permanent HTTPS redirect; HSTS only takes effect after a secure response has been received.
 
 ## Page intent
