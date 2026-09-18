@@ -27,7 +27,8 @@ const wholesalePayload = {
   kind: "Bulk enquiry",
   fields: {
     "Business name": "Test Restaurant",
-    Location: "Chennai",
+    Phone: "919876543210",
+    Address: "12 Test Street, Chennai 600001",
     Product: "Large Samosa Sheet",
     "Sheet size": "8 × 8 inch",
     "Pack size": "100 sheets",

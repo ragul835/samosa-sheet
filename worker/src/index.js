@@ -128,7 +128,7 @@ export default {
 
     const fieldSchemas = {
       "Product order": ["Product", "Sheet size", "Pack size", "Quantity", "Customer phone", "Delivery address"],
-      "Bulk enquiry": ["Business name", "Location", "Product", "Sheet size", "Pack size", "Quantity", "Frequency"],
+      "Bulk enquiry": ["Business name", "Phone", "Address", "Product", "Sheet size", "Pack size", "Quantity", "Frequency"],
       "Contact enquiry": ["Name", "Phone", "Email", "Enquiry type", "Message"],
     };
     const allowedFields = new Set(fieldSchemas[kind] || []);
