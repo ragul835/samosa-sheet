@@ -21,16 +21,23 @@ export default function Wholesale() {
 
     const form = new FormData(event.currentTarget);
     const businessName = String(form.get("businessName") ?? "").trim();
-    const location = String(form.get("location") ?? "").trim();
+    const phone = String(form.get("phone") ?? "").trim();
+    const address = String(form.get("address") ?? "").trim();
     const productId = Number(form.get("productId"));
     const quantity = Number(form.get("quantity"));
     const frequency = String(form.get("frequency") ?? "").trim();
     const website = String(form.get("website") ?? "");
     const selectedProduct = products.find((product) => product.id === productId);
+    const phoneDigits = phone.replace(/\D/g, "");
 
-    if (businessName.length < 2 || location.length < 3 || !selectedProduct || frequency.length < 2) {
+    if (businessName.length < 2 || address.length < 10 || !selectedProduct || frequency.length < 2) {
       logEvent("warn", "bulk_validation_failed", { field: "details" });
       setError("Please complete all enquiry details.");
+      return;
+    }
+    if (!/^\d{10,15}$/.test(phoneDigits)) {
+      logEvent("warn", "bulk_validation_failed", { field: "phone" });
+      setError("Please enter a valid phone number with 10–15 digits.");
       return;
     }
     if (!Number.isInteger(quantity) || quantity < 1 || quantity > 10000) {
@@ -44,7 +51,8 @@ export default function Wholesale() {
 I would like to request a wholesale price.
 
 Business name: ${businessName}
-Location: ${location}
+Phone: ${phone}
+Address: ${address}
 Product: ${selectedProduct.name}
 Sheet size: ${selectedProduct.size}
 Pack size: ${selectedProduct.quantity}
@@ -55,7 +63,7 @@ Please share pricing, minimum order quantity and delivery details.`);
     setSubmitting(true);
     try {
       await emailThenOpenWhatsApp({ kind: "Bulk enquiry", website, fields: {
-        "Business name": businessName, Location: location, Product: selectedProduct.name, "Sheet size": selectedProduct.size,
+        "Business name": businessName, Phone: phone, Address: address, Product: selectedProduct.name, "Sheet size": selectedProduct.size,
         "Pack size": selectedProduct.quantity, Quantity: `${quantity} pack${quantity === 1 ? "" : "s"}`, Frequency: frequency,
       } }, url);
     } catch {
@@ -92,8 +100,11 @@ Please share pricing, minimum order quantity and delivery details.`);
             <label className="sr-only" htmlFor="bulk-business-name">Business name</label>
             <input id="bulk-business-name" name="businessName" type="text" autoComplete="organization" minLength={2} maxLength={100} required placeholder="Business Name" className={fieldClass} />
 
-            <label className="sr-only" htmlFor="bulk-location">Location</label>
-            <input id="bulk-location" name="location" type="text" autoComplete="address-level2" minLength={3} maxLength={150} required placeholder="Location" className={fieldClass} />
+            <label className="sr-only" htmlFor="bulk-phone">Phone number</label>
+            <input id="bulk-phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" minLength={10} maxLength={20} required placeholder="Phone Number" className={fieldClass} />
+
+            <label className="sr-only" htmlFor="bulk-address">Address</label>
+            <textarea id="bulk-address" name="address" autoComplete="street-address" rows={3} minLength={10} maxLength={300} required placeholder="Complete Address (house/shop, street, area, city and PIN code)" className={`${fieldClass} py-3`} />
 
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
